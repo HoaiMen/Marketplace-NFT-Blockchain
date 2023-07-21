@@ -27,48 +27,47 @@
         </thead>
 
         <tbody>
+          <% for(var i=0; i < dataProducts.length; i++) { %>
           <tr>
-            <td>1</td>
-            <td>firstName</td>
-            <td>lastName</td>
+            <td><%= dataProducts[i].id %></td>
+            <td><%= dataProducts[i].name %></td>
+            <td><%= dataProducts[i].price %></td>
             <td>
               <button type="button">
-                <a href="/detail/user">Detail</a>
+                <a href="/detail/user/<%= dataProducts[i].id %>">Detail</a>
               </button>
-              <form action="/edit-user" method="GET">
+              <form action="/edit-user/<%= dataProducts[i].id %>" method="GET">
                 <button type="submit">Edit</button>
               </form>
               <form action="/delete-user" method="POST">
+                <input type="text" name="userId" hidden value="<%= dataProducts[i].id %>" />
                 <button type="submit">Delete</button>
               </form>
             </td>
           </tr>
+          <% } %>
         </tbody>
       </table>
     </div>
-    <!-- <div class="create-new-user-container">
+    <div class="create-new-user-container">
       <h2>Creat New User</h2>
-      <form action="/create-new-user" method="POST">
+      <form action="/product/create-product" method="POST">
         <div>
-          <label>First name:</label><br />
-          <input type="text" id="fname" name="firstName" /><br />
+          <label>name:</label><br />
+          <input type="text" id="name" name="name" /><br />
         </div>
         <div>
-          <label>Last name:</label><br />
-          <input type="text" id="lname" name="lastName" />
+          <label>price:</label><br />
+          <input type="text" id="price" name="price" />
         </div>
         <div>
-          <label>Email:</label><br />
-          <input type="email" id="lname" name="email" />
-        </div>
-        <div>
-          <label>Password:</label><br />
-          <input type="password" id="lname" name="password" />
+          <label>category:</label><br />
+          <input type="text" id="lname" name="category" />
         </div>
         <div>
           <button type="submit" class="btn-submit">Submit</button>
         </div>
       </form>
-    </div> -->
+    </div>
   </body>
 </html>
