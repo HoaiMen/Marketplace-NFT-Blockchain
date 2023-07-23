@@ -4,7 +4,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -17,6 +17,9 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['.js', '.jsx'],
+    fallback: {
+      crypto: require.resolve('crypto-browserify')
+    }
   }
 };

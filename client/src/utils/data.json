@@ -1,0 +1,138 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "isNew": false,
+      "isHot": true,
+      "onSale": false,
+      "popular": true,
+      "category": "fruit",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": [
+        "https://cdn-www.vinid.net/2019/10/an-cam-co-tac-dung-gi-nen-an-cam-luc-nao-tot-nhat-1024x682.jpg",
+        "https://media-cdn-v2.laodong.vn/storage/newsportal/2022/1/7/992511/Cach-Chon-Cam-Canh.jpg?w=800&h=496&crop=auto&scale=both",
+        "https://media-cdn-v2.laodong.vn/storage/newsportal/2022/8/22/1083425/Qua-Cam.jpg?w=800&h=496&crop=auto&scale=both",
+        "https://toshiko.vn/wp-content/uploads/2021/02/cam.jpg",
+        "https://hongngochospital.vn/wp-content/uploads/2020/02/nuoc-cam-1.jpg"
+      ],
+      "name": "Sweet Orange",
+      "price": 4.99,
+      "rating": 4.8,
+      "numReviews": 58,
+      "currency": "USD",
+      "quantity": 500
+    },
+
+    {
+      "id": 2,
+      "isNew": false,
+      "isHot": true,
+      "onSale": true,
+      "popular": false,
+      "category": "vegetables",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": [
+        "https://icdn.dantri.com.vn/thumb_w/680/2022/11/25/bapcai-1669346646495.jpg",
+        "https://www.shutterstock.com/image-photo/cut-organic-green-purple-cabbage-260nw-175471514.jpg",
+        "https://www.thespruceeats.com/thmb/IpMoMgZn7v-lJTN-HBCW6_N6Acg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/greencabbageDianaMiller-750a13ed901b46cd807bee7ed0ed8586.jpg",
+        "https://images.saymedia-content.com/.image/t_share/MTkzNDkxNzY3NDE5NDc5NTM2/why-does-cabbage-stink-when-you-cook-it.jpg",
+        "https://experiencelife.lifetime.life/wp-content/uploads/2021/08/neff-cabbage.jpg",
+        "https://www.realfoodforlife.com/wp-content/uploads/2011/09/Red-and-Green-Cabbage.jpg"
+      ],
+      "name": "Green Cabbage",
+      "price": 2.99,
+      "rating": 4.5,
+      "numReviews": 26,
+      "currency": "USD",
+      "quantity": 500
+    },
+    {
+      "id": 3,
+      "isNew": true,
+      "isHot": false,
+      "onSale": true,
+      "popular": true,
+      "category": "fruit",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": [
+        "https://vinmec-prod.s3.amazonaws.com/images/20210302_033106_659301_tieu-duong-co-duoc-.max-1800x1800.jpg",
+        "https://cdn.youmed.vn/tin-tuc/wp-content/uploads/2020/11/2.1-2.jpg",
+        "https://bizweb.dktcdn.net/thumb/grande/100/164/964/articles/cong-dung-cua-qua-nho-voi-suc-khoe-con-nguoi-nhu-the-nao.jpg?v=1538197412707",
+        "https://review.siu.edu.vn/upload/SiuT0622/loi-ich-cua-nho-1.jpg",
+        "https://media.istockphoto.com/id/183217648/photo/bunch-of-different-types-of-fresh-grapes.jpg?s=170667a&w=0&k=20&c=11BJfw8vwBffHl5NQhYAbBwGm-AbTBfe8zlBnCqSK1g="
+      ],
+      "name": "Canadian Grapes",
+      "price": 6.99,
+      "rating": 4.2,
+      "numReviews": 34,
+      "currency": "USD",
+      "quantity": 500
+    },
+    {
+      "id": 4,
+      "isNew": true,
+      "isHot": false,
+      "onSale": true,
+      "popular": false,
+      "category": "fruit",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": [
+        "https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2022/02/tao-tay-696x392.jpg?fit=700%2C20000&quality=95&ssl=1",
+        "https://hoaquafuji.com/storage/app/media/anh-sua/cropped-images/tao-do-2-6-16-794-709-1623469683.jpg",
+        "https://bizweb.dktcdn.net/100/390/808/products/fb.jpg?v=1632211622160",
+        "https://cdn.tgdd.vn/Files/2019/12/19/1227560/an-2-qua-tao-moi-ngay-dieu-ky-dieu-se-den-voi-co-the-cua-ban-201912192209373025.jpg",
+        "https://suckhoe123.vn/uploads/suc-khoe/2021_05/20191023_110959_903760_pectin.max-1800x1800.jpg"
+      ],
+      "name": "Red Apple",
+      "price": 5.99,
+      "rating": 4,
+      "numReviews": 21,
+      "currency": "USD",
+      "quantity": 500
+    },
+    {
+      "id": 5,
+      "isNew": false,
+      "isHot": true,
+      "onSale": false,
+      "popular": true,
+      "category": "vegetables",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": [
+        "https://images2.thanhnien.vn/Uploaded/ngocthanh/2022_03_03/ca-rot-2275.jpg",
+        "https://tieuduong.net/wp-content/uploads/2020/07/tieu-duong-co-an-duoc-ca-rot-khong-1.jpg",
+        "https://chephamsinhhoc.net/fckFiles/ca-rot-an-toan.jpg",
+        "https://cdn.tgdd.vn/Files/2017/01/04/933983/cach-chon-mua-va-bao-quan-ca-rot-tuoi-lau-202205311643094912.jpg",
+        "https://cdn-i.vtcnews.vn/resize/Da9xKKWytSoNaNf45OZOmOdyZyvO5msI0/upload/2021/04/27/ca-rot-13105382.jpg"
+      ],
+      "name": "Fresh Carrots",
+      "price": 3.99,
+      "rating": 5,
+      "numReviews": 44,
+      "currency": "USD",
+      "quantity": 500
+    },
+    {
+      "id": 6,
+      "isNew": true,
+      "isHot": false,
+      "onSale": false,
+      "popular": false,
+      "category": "vegetables",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": [
+        "https://cdn.nhathuoclongchau.com.vn/unsafe/https://cms-prod.s3-sgn09.fptcloud.com/an_ca_tim_co_tot_khong_an_nhu_the_nao_moi_tot_KOD_Cr_1666578349_11c7446a5e.jpeg",
+        "https://kenh14cdn.com/2018/3/20/photo-1-15215189122451007088998.jpg",
+        "https://vinmec-prod.s3.amazonaws.com/images/20211025_095500_094901_ba-bau-an-ca-tim-du.max-1800x1800.jpg",
+        "https://www.lorca.vn/wp-content/uploads/2022/07/eggplant-2.webp",
+        "https://nongnghiepmoi.net/wp-content/uploads/2022/02/huong-dan-cach-trong-ca-tim-tacca3i-nha-cho-nang-suat-cao-sum-sue-qua-678-4-854x540.jpg"
+      ],
+      "name": "Fresh Eggplant",
+      "price": 3.66,
+      "rating": 3,
+      "numReviews": 10,
+      "currency": "USD",
+      "quantity": 500
+    }
+  ]
+}
