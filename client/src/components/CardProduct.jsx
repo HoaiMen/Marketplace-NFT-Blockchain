@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Link, Badge, SimpleGrid, Card, CardBody, Image, Stack, Heading, Text, CardFooter, ButtonGroup, Button, HStack, Flex } from "@chakra-ui/react";
+import { Box, Link, Badge, SimpleGrid, Card, CardBody, Image, Stack, Heading, Text, CardFooter, Button, HStack, Flex } from "@chakra-ui/react";
 import Rating from './Rating';
 
 const CardProduct = () => {

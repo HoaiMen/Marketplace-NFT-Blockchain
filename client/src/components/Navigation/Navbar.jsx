@@ -22,6 +22,7 @@ import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Logo from '../Logo';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,7 +49,7 @@ const Navbar = () => {
 
                     <Flex alignItems={'center'}>
                         <Stack direction={'row'} spacing={7}>
-                            <Button >
+                            <Button as={NavLink} to={'/cart'}>
                                 <BsFillCartPlusFill />
                             </Button>
                             <Menu>
@@ -60,7 +61,7 @@ const Navbar = () => {
                                     minW={0}>
                                     <Avatar
                                         size={'sm'}
-                                        src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
+                                        src={'https://avatars.dicebear.com/api/male/username.svg'}
                                     />
                                 </MenuButton>
                                 <MenuList alignItems={'center'}>
@@ -68,7 +69,7 @@ const Navbar = () => {
                                     <Center>
                                         <Avatar
                                             size={'2xl'}
-                                            src={'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'}
+                                            src={'https://avatars.dicebear.com/api/male/username.svg'}
                                         />
                                     </Center>
                                     <br />
@@ -77,9 +78,9 @@ const Navbar = () => {
                                     </Center>
                                     <br />
                                     <MenuDivider />
-                                    <MenuItem>Your Servers</MenuItem>
-                                    <MenuItem>Account Settings</MenuItem>
-                                    <MenuItem><Link>Logout</Link></MenuItem>
+                                    <MenuItem><Link as={NavLink} to={'/signIn'}>Sign In</Link></MenuItem>
+                                    <MenuItem><Link as={NavLink} to={'/signUp'}>Sign Up</Link></MenuItem>
+                                    <MenuItem><Link as={NavLink} to={'/signIn'}>Logout</Link></MenuItem>
                                 </MenuList>
                             </Menu>
                         </Stack>

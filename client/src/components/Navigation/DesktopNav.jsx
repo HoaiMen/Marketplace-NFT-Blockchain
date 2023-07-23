@@ -20,11 +20,12 @@ const DesktopNav = () => {
                         to={navItem.href}
                         fontSize={'lg'}
                         fontWeight={500}
+                        color={'gray.400'}
                         _hover={{
                             textDecoration: 'none',
                             bg: 'orange.100',
                         }}
-                        _activeLink={path === navItem.href ? { borderBottom: '4px', borderColor: 'green.300' } : {}}
+                        _activeLink={path === navItem.href ? { borderBottom: '4px', color: 'black', borderColor: 'green.300' } : {}}
                     >
                         {navItem.label}
                     </Link>

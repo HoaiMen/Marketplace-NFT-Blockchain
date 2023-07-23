@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, VStack, InputGroup, InputLeftAddon, Input, Slider, NumberInput, NumberInputField, SliderThumb, SliderMark, SliderTrack, Tooltip, SliderFilledTrack } from "@chakra-ui/react";
+import { Box, VStack, InputGroup, InputLeftAddon, Input, Slider, NumberInput, NumberInputField, SliderThumb, SliderMark, SliderTrack, Tooltip, SliderFilledTrack, Button } from "@chakra-ui/react";
 
 const SliderPrice = () => {
     const [sliderValue, setSliderValue] = React.useState(10)
@@ -63,7 +63,7 @@ const SliderPrice = () => {
                     </NumberInput>
                 </InputGroup>
 
-
+                <Button w='full' my='4' variant='solid' colorScheme="green">Xóa lựa chọn</Button>
 
             </VStack>
         </Box>

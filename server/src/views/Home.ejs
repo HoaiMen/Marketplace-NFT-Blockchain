@@ -34,13 +34,13 @@
             <td><%= dataProducts[i].price %></td>
             <td>
               <button type="button">
-                <a href="/detail/user/<%= dataProducts[i].id %>">Detail</a>
+                <a href="/product/detail-product/<%= dataProducts[i].id %>">Detail</a>
               </button>
               <form action="/edit-user/<%= dataProducts[i].id %>" method="GET">
                 <button type="submit">Edit</button>
               </form>
-              <form action="/delete-user" method="POST">
-                <input type="text" name="userId" hidden value="<%= dataProducts[i].id %>" />
+              <form action="product/delete-product" method="POST">
+                <input type="text" name="productId" value="<%= dataProducts[i].id %>" />
                 <button type="submit">Delete</button>
               </form>
             </td>
