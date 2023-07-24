@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://minh53016:SV0jIJDFnTANHieY@marketplace.mppfego.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
+}
