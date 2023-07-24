@@ -65,7 +65,8 @@ const Main = ({ products, createProduct, purchaseProduct }) => {
                       value={product.price}
                       onClick={(event) => {
                         purchaseProduct(event.target.name, event.target.value);
-                      }}>
+                      }}
+                    >
                       Buy
                     </button>
                   ) : null}
