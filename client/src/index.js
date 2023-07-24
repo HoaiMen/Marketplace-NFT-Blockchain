@@ -8,16 +8,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import HomeContextProvider from './contexts/HomeContext';
+import CartContextProvider from './contexts/CartContext';
 
 serviceWorker.unregister();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
-    <HomeContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </HomeContextProvider>
+    <BrowserRouter>
+      <CartContextProvider>
+        <HomeContextProvider>
+          <App />
+        </HomeContextProvider>
+      </CartContextProvider>
+    </BrowserRouter>
   </ChakraProvider>
 );
 

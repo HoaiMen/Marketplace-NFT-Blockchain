@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BsFillCartPlusFill } from 'react-icons/bs'
 import {
+    Text,
     Box,
     Flex,
     Avatar,
@@ -23,9 +24,11 @@ import Logo from '../Logo';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import { NavLink } from 'react-router-dom';
+import { CartContext } from '../../contexts/CartContext';
 
 const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { amountInCart } = useContext(CartContext)
     return (
         <>
             <Box px={4} bg='white' w='full' >
@@ -49,9 +52,29 @@ const Navbar = () => {
 
                     <Flex alignItems={'center'}>
                         <Stack direction={'row'} spacing={7}>
-                            <Button as={NavLink} to={'/cart'}>
-                                <BsFillCartPlusFill />
-                            </Button>
+                            <Flex px="4" display={{ base: 'none', md: 'inline-flex' }}>
+                                <IconButton
+                                    zIndex="1"
+                                    size={'md'}
+                                    icon={<BsFillCartPlusFill />}
+                                    aria-label={'Open Cart'}
+                                    as={NavLink}
+                                    to={'/cart'}
+                                // onClick={navigator}
+                                />
+                                <Box ml="-1.5" mt="-1.5" zIndex="2">
+                                    <Text
+                                        bg="green.400"
+                                        rounded={'full'}
+                                        w="5"
+                                        h="6"
+                                        align="center"
+                                        textColor="white"
+                                    >
+                                        {amountInCart}
+                                    </Text>
+                                </Box>
+                            </Flex>
                             <Menu>
                                 <MenuButton
                                     as={Button}

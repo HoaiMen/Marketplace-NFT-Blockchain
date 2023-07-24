@@ -7,8 +7,8 @@
       "onSale": false,
       "category": "Thực phẩm",
       "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
-      "imageURL": "https://cdn-www.vinid.net/2019/10/an-cam-co-tac-dung-gi-nen-an-cam-luc-nao-tot-nhat-1024x682.jpg",
-      "name": "Sweet Orange",
+      "imageURL": "https://vinmec-prod.s3.amazonaws.com/images/20210302_033106_659301_tieu-duong-co-duoc-.max-1800x1800.jpg",
+      "name": "Nho tươi nhập khẩu",
       "price": 2000000000000000000,
       "rating": 4.8,
       "numReviews": 58,
@@ -16,7 +16,6 @@
       "status": "Tạo sản phẩm",
       "itemAddress": "0x1a895F10ac38b7B29a8987AC059e18B3aD70241f"
     },
-
     {
       "id": 2,
       "isNew": true,
@@ -25,9 +24,8 @@
       "category": "Khác",
       "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
       "imageURL": "https://kinhtechungkhoan.vn/stores/news_dataimages/2022/122022/06/14/in_article/03d6f2c2f30b5ade74124a114d566652.jpg?rt=20221206140618",
-
       "name": "Xe Honda SH Mode 2023",
-      "price": 10000000000000000000,
+      "price": 1000000000000000000,
       "rating": 4.5,
       "numReviews": 26,
       "dateCreate": "23/7/2023",
@@ -42,7 +40,6 @@
       "category": "Thiết bị công nghệ",
       "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
       "imageURL": "https://truesmart.com.vn/wp-content/uploads/rockspace-o2-1.png",
-
       "name": "Headphone Tai Nghe Rockspace O2",
       "price": 7000000000000000000,
       "rating": 4.2,
@@ -59,7 +56,6 @@
       "category": "Phụ kiện điện tử",
       "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
       "imageURL": "https://vlink.com.vn/uploads/VGA_nVidia_Quadro_RTX_6000_24GB_GDDR6.jpg",
-
       "name": "Card Màn Hình nVidia Quadro RTX ",
       "price": 9000000000000000000,
       "rating": 3,
@@ -76,7 +72,6 @@
       "category": "Thực phẩm",
       "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
       "imageURL": "https://images2.thanhnien.vn/Uploaded/ngocthanh/2022_03_03/ca-rot-2275.jpg",
-
       "name": "Fresh Carrots",
       "price": 4000000000000000000,
       "rating": 5,
@@ -97,6 +92,40 @@
       "price": 5000000000000000000,
       "rating": 3,
       "numReviews": 10,
+      "dateCreate": "23/7/2023",
+      "status": "Tạo sản phẩm",
+      "itemAddress": "0x1a895F10ac38b7B29a8987AC059e18B3aD70241f"
+    }
+  ],
+  "cart": [
+    {
+      "id": 2,
+      "isNew": true,
+      "isHot": false,
+      "onSale": false,
+      "category": "Khác",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": "https://kinhtechungkhoan.vn/stores/news_dataimages/2022/122022/06/14/in_article/03d6f2c2f30b5ade74124a114d566652.jpg?rt=20221206140618",
+      "name": "Xe Honda SH Mode 2023",
+      "price": 1000000000000000000,
+      "rating": 4.5,
+      "numReviews": 26,
+      "dateCreate": "23/7/2023",
+      "status": "Tạo sản phẩm",
+      "itemAddress": "0x1a895F10ac38b7B29a8987AC059e18B3aD70241f"
+    },
+    {
+      "id": 1,
+      "isNew": false,
+      "isHot": true,
+      "onSale": false,
+      "category": "Thực phẩm",
+      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
+      "imageURL": "https://vinmec-prod.s3.amazonaws.com/images/20210302_033106_659301_tieu-duong-co-duoc-.max-1800x1800.jpg",
+      "name": "Nho tươi nhập khẩu",
+      "price": 2000000000000000000,
+      "rating": 4.8,
+      "numReviews": 58,
       "dateCreate": "23/7/2023",
       "status": "Tạo sản phẩm",
       "itemAddress": "0x1a895F10ac38b7B29a8987AC059e18B3aD70241f"

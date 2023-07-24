@@ -1,26 +1,22 @@
 import React from 'react';
 import {
-    Badge,
     Button,
-    Center,
     Flex,
     Heading,
     Image,
-    Link,
     Stack,
     Text,
     VStack,
 } from '@chakra-ui/react';
 
-const ItemCart = () => {
+const ItemCart = ({ image, name, category, price, dateCreate, handleClick }) => {
     return (
         <Stack
+            mt={4}
             borderWidth="1px"
-            // w={{ sm: '100%', md: '700px' }}
-            // height={{ sm: '476px', md: '200px' }}
             direction={{ base: 'column', md: 'row' }}
             bg={'gray.100'}
-            boxShadow={'2xl'}
+            boxShadow={'xl'}
             padding={4}>
             <Flex flex={1} bg="blue.200">
                 <Image
@@ -28,9 +24,7 @@ const ItemCart = () => {
                     // h={{ base: '150px', md: '230px' }}
                     width="100%"
                     boxSize="100%"
-                    src={
-                        "https://noithathoanlong.com/wp-content/uploads/2020/09/sofa-vang-chan-quy-go-soi-SFS29.jpg"
-                    }
+                    src={image}
                 />
             </Flex>
             <Stack
@@ -41,27 +35,27 @@ const ItemCart = () => {
                 pt={1} spacing='-2'>
 
                 <Heading fontSize={'xl'} fontFamily={'body'}>
-                    Bộ bàn ghế sofa gỗ sồi Nga SFS29
+                    {name}
                 </Heading>
                 <Text fontWeight='medium' color={'green.300'} >
-                    Giá: 5000000000000000000 wei
+                    Giá: {price} wei
                 </Text>
 
                 <Text
                     fontSize='sm'
                     color={'gray.400'}
                 >
-                    Ngày tải lên: 23/7/2023
+                    Ngày tải lên: {dateCreate}
                 </Text>
                 <Text
                     fontSize='sm'
                     color={'gray.400'}
                 >
-                    Danh mục: Đồ nội thất
+                    Danh mục: {category}
                 </Text>
             </Stack>
             <VStack flex={1} alignItems={'start'}>
-                <Button w={'full'} variant={'solid'} colorScheme='green'>
+                <Button w={'full'} variant={'solid'} colorScheme='green' onClick={handleClick}>
                     Xóa sản phẩm
                 </Button>
                 <Button w={'full'} variant={'solid'} colorScheme='green'>

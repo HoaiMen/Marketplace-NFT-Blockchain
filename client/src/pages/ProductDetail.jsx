@@ -7,20 +7,19 @@ import {
     Text,
     HStack,
     Tag,
-    SpaceProps,
     useColorModeValue,
     Container,
     ListItem,
     List,
     Divider,
-    VStack,
     Button,
 } from '@chakra-ui/react';
 
 import DefaultLayout from '../layouts/DefaultLayout'
-import { useParams } from 'react-router-dom';
 import Rating from '../components/Rating';
-
+import { getProduct } from '../api/Product.api';
+import { useParams } from 'react-router-dom';
+import { CartContext } from '../contexts/CartContext'
 const BlogTags = (props) => {
     return (
         <HStack spacing={2} marginTop={props.marginTop}>
@@ -36,6 +35,23 @@ const BlogTags = (props) => {
 };
 
 const ProductDetail = () => {
+    const [product, setProduct] = useState({})
+    const param = useParams();
+    const { handleAddCart } = useContext(CartContext)
+
+    const getProductDetail = async (id) => {
+        try {
+            const product = await getProduct(id)
+            setProduct(product?.data);
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    useEffect(() => {
+        if (param.id) {
+            getProductDetail(param.id)
+        }
+    }, [param.id]);
     return (
         <DefaultLayout>
             <Container maxW={'full'} px="12">
@@ -62,7 +78,7 @@ const ProductDetail = () => {
                                 h="330px"
                                 width="650px"
                                 borderRadius="lg"
-                                src='https://icdn.dantri.com.vn/thumb_w/680/2022/11/25/bapcai-1669346646495.jpg'
+                                src={product.imageURL}
                                 alt="some good alt text"
                                 objectFit="cover"
                             />
@@ -71,8 +87,8 @@ const ProductDetail = () => {
                         <Box zIndex="1" width="100%" position="absolute" height="80%">
                             <Box
                                 bgGradient={useColorModeValue(
-                                    'radial(orange.600 1px, transparent 1px)',
-                                    'radial(orange.300 1px, transparent 1px)'
+                                    'radial(orange.600 1.5px, transparent 1.5px)',
+                                    'radial(red.300 1.5px, transparent 1.5px)'
                                 )}
                                 backgroundSize="20px 20px"
                                 opacity="0.4"
@@ -89,15 +105,15 @@ const ProductDetail = () => {
                         <BlogTags tags={['Engineering', 'Product']} />
                         <Heading marginTop="1">
                             <Link textDecoration="none" _hover={{ textDecoration: 'none' }}>
-                                Card đồ họa
+                                {product.name}
                             </Link>
                         </Heading>
                         <Text
-                            color={useColorModeValue('gray.900', 'gray.400')}
-                            fontWeight={300}
+                            color={'blue.600'}
+                            fontWeight='bold'
                             fontSize={'xl'}
                         >
-                            10.000000 ether
+                            {product.price} Wei
                         </Text>
                         <Text
                             as="p"
@@ -105,7 +121,7 @@ const ProductDetail = () => {
                             fontSize="lg"
                             mb='-1'
                         >
-                            This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.
+                            {product.content}
                         </Text>
                         <Divider />
                         <Box>
@@ -124,7 +140,7 @@ const ProductDetail = () => {
                                     <Text as={'span'} fontWeight={'bold'}>
                                         Category:
                                     </Text>{' '}
-                                    Hàng tiêu dùng
+                                    {product.category}
                                 </ListItem>
                                 <ListItem>
                                     <HStack>
@@ -132,8 +148,8 @@ const ProductDetail = () => {
                                             Rating:
                                         </Text>{' '}
                                         <Rating
-                                            rating='4.5'
-                                            numReviews='78'
+                                            rating={product.rating}
+                                            numReviews={product.numReviews}
                                         />
                                     </HStack>
                                 </ListItem>
@@ -141,7 +157,7 @@ const ProductDetail = () => {
                                     <Text as={'span'} fontWeight={'bold'}>
                                         Đăng tải vào:
                                     </Text>{' '}
-                                    23/07/2023
+                                    {product.dateCreate}
                                 </ListItem>
                             </List>
                         </Box>
@@ -150,7 +166,7 @@ const ProductDetail = () => {
                             colorScheme="green"
                             w="50%"
                             mt="6"
-                        // onClick={() => handleAddCart(product)}
+                            onClick={() => handleAddCart(product)}
                         >
                             Add to cart
                         </Button>

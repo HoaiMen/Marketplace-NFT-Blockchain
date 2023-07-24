@@ -2,16 +2,19 @@ import React, { useContext, useEffect } from "react";
 import { Box, Link, Badge, SimpleGrid, Card, CardBody, Image, Stack, Heading, Text, CardFooter, Button, HStack } from "@chakra-ui/react";
 import Rating from './Rating';
 import { HomeContext } from "../contexts/HomeContext";
+import { CartContext } from "../contexts/CartContext";
 
 const CardProduct = () => {
-    const { page, products, price, type, getAllProduct, getProductCate } = useContext(HomeContext);
-    console.log("price:", price)
-    console.log("type:", type)
-    console.log('pro-home:', products);
+    const { page, products, price, type, getAllProduct, getProductCate, handleView } = useContext(HomeContext);
+    const { handleAddCart } = useContext(CartContext)
+
+    useEffect(() => {
+        getAllProduct(page, price)
+    }, [page, price]);
+
     useEffect(() => {
         getProductCate(type)
-        getAllProduct(page, type, price)
-    }, [page, type, price])
+    }, [type])
     return (
         <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 4 }} spacing='40px'>
             {products.map((product) => (
@@ -22,7 +25,7 @@ const CardProduct = () => {
                                 <Link
                                     textDecoration="none"
                                     _hover={{ textDecoration: 'none' }}
-                                // onClick={handleView}
+                                    onClick={() => handleView(product.id)}
                                 >
                                     <Image
                                         transform="scale(1.0)"
@@ -60,7 +63,7 @@ const CardProduct = () => {
                                     variant="solid"
                                     w="100%"
                                     colorScheme='blue'
-                                // onClick={handleAdd}
+                                    onClick={() => handleAddCart(product)}
                                 >
                                     Add to cart
                                 </Button>
@@ -68,7 +71,7 @@ const CardProduct = () => {
                                     variant="outline"
                                     colorScheme="blue"
                                     w="100%"
-                                // onClick={handleView}
+                                    onClick={() => handleView(product.id)}
                                 >
                                     View detail
                                 </Button>

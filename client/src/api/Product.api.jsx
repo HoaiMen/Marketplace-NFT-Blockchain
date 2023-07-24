@@ -13,5 +13,9 @@ export const getProduct = (id) => {
 };
 
 export const getProductCategory = (category) => {
-    return http.get(`http://localhost:3000/data/${category}`);
+    return http.get(`http://localhost:3000/data`, {
+        body: {
+            category: category
+        }
+    });
 };
