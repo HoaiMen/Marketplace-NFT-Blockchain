@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Box,
     CloseButton, AccordionPanel,
     Flex, AccordionItem, Accordion, AccordionButton, AccordionIcon,
-    useColorModeValue, Text, CheckboxGroup, Checkbox, Stack
+    useColorModeValue, Text, CheckboxGroup, Checkbox, Stack, Radio, RadioGroup
 } from '@chakra-ui/react';
 import SliderPrice from './SliderPrice'
+import { HomeContext } from '../contexts/HomeContext';
 
+const tabs = ['Tất cả', 'Đồ nội thất', 'Thiết bị công nghệ', 'Phụ kiện điện tử', 'Thực phẩm', 'Khác']
 const SidebarContent = ({ onClose, ...rest }) => {
+    const { type, setType, price, setPrice } = useContext(HomeContext)
     return (
         <Box
             borderRight="1px"
@@ -35,17 +38,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
                             </AccordionButton>
                         </h2>
                         <AccordionPanel pb={4} pt='-2'>
-                            <CheckboxGroup colorScheme='green' defaultValue={['all']}>
+                            <RadioGroup colorScheme='green' defaultValue={type}>
                                 <Stack pl={6} mt={1} spacing={1} ml='-2'>
-                                    <Checkbox value='all'>Tất cả</Checkbox>
-                                    <Checkbox value='sasuke'>Đồ nội thất</Checkbox>
-                                    <Checkbox value='kakashi'>Thiết bị công nghệ</Checkbox>
-                                    <Checkbox value='kaka'>Phụ kiện điện tử</Checkbox>
-                                    <Checkbox value='kashi'>Thực phẩm</Checkbox>
-                                    <Checkbox value='kahi'>Khác</Checkbox>
-
+                                    {tabs.map((tab, index) => (
+                                        <Radio key={index} onChange={() => setType(tab)} value={tab}>{tab}</Radio>
+                                    ))}
                                 </Stack>
-                            </CheckboxGroup>
+                            </RadioGroup>
                         </AccordionPanel>
                     </AccordionItem>
 

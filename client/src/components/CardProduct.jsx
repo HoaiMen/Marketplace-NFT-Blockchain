@@ -1,222 +1,83 @@
-import React from "react";
-import { Box, Link, Badge, SimpleGrid, Card, CardBody, Image, Stack, Heading, Text, CardFooter, Button, HStack, Flex } from "@chakra-ui/react";
+import React, { useContext, useEffect } from "react";
+import { Box, Link, Badge, SimpleGrid, Card, CardBody, Image, Stack, Heading, Text, CardFooter, Button, HStack } from "@chakra-ui/react";
 import Rating from './Rating';
+import { HomeContext } from "../contexts/HomeContext";
 
 const CardProduct = () => {
+    const { page, products, price, type, getAllProduct, getProductCate } = useContext(HomeContext);
+    console.log("price:", price)
+    console.log("type:", type)
+    console.log('pro-home:', products);
+    useEffect(() => {
+        getProductCate(type)
+        getAllProduct(page, type, price)
+    }, [page, type, price])
     return (
-        //1600: 4
         <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 4 }} spacing='40px'>
-            <Box>
-                <Card maxW='sm'>
-                    <CardBody>
-                        <Box borderRadius="lg" overflow="hidden">
-                            <Link
-                                textDecoration="none"
-                                _hover={{ textDecoration: 'none' }}
-                            // onClick={handleView}
-                            >
-                                <Image
-                                    transform="scale(1.0)"
-                                    src='https://cdn-www.vinid.net/2019/10/an-cam-co-tac-dung-gi-nen-an-cam-luc-nao-tot-nhat-1024x682.jpg'
-                                    alt={`Picture of `}
-                                    objectFit="cover"
-                                    h={{ base: '150px', md: '230px' }}
-                                    width="100%"
-                                    transition="0.3s ease-in-out"
-                                    _hover={{
-                                        transform: 'scale(1.05)',
-                                    }}
-                                />
-                            </Link>
-                        </Box>
-                        <Stack mt='4' spacing='2'>
-                            <Box w={{ base: '50%', md: '100%' }}>
-                                <Status color="blue" lable="New" />
-                                <Status color="red" lable="Hot" />
-                                <Status color="green" lable="On Sale" />
+            {products.map((product) => (
+                <Box key={product.id}>
+                    <Card maxW='sm'>
+                        <CardBody>
+                            <Box borderRadius="lg" overflow="hidden">
+                                <Link
+                                    textDecoration="none"
+                                    _hover={{ textDecoration: 'none' }}
+                                // onClick={handleView}
+                                >
+                                    <Image
+                                        transform="scale(1.0)"
+                                        src={product.imageURL}
+                                        alt={`Picture of`}
+                                        objectFit="cover"
+                                        h={{ base: '150px', md: '230px' }}
+                                        width="100%"
+                                        transition="0.3s ease-in-out"
+                                        _hover={{
+                                            transform: 'scale(1.05)',
+                                        }}
+                                    />
+                                </Link>
                             </Box>
-                            <Heading size="md">Card đồ họa</Heading>
+                            <Stack mt='4' spacing='2'>
+                                <Box w={{ base: '50%', md: '100%' }}>
+                                    {product.isNew && (<Status color="blue" lable="New" />)}
+                                    {product.isHot && (<Status color="red" lable="Hot" />)}
+                                    {product.onSale && (<Status color="green" lable="On Sale" />)}
+                                </Box>
+                                <Heading size="md">{product.name}</Heading>
 
-                            <Text fontSize="sm" mb='-0.5'>Đăng tải vào: 22/07/2023</Text>
-                            <Rating rating='2.5' numReviews='28' />
-                            <HStack spacing='4'>
-                                <Text fontWeight="bold" fontSize='md'>Giá: </Text>
-                                <Text fontWeight="bold" fontSize='md' color='blue'>10.000000 ether</Text>
-                            </HStack>
-                        </Stack>
-                    </CardBody>
-                    <CardFooter mt={-8}>
-                        <SimpleGrid columns={[1, null, 2]} spacing={8} w="full">
-                            <Button
-                                variant="solid"
-                                w="100%"
-                                colorScheme='blue'
-                            // onClick={handleAdd}
-                            >
-                                Add to cart
-                            </Button>
-                            <Button
-                                variant="outline"
-                                colorScheme="blue"
-                                w="100%"
-                            // onClick={handleView}
-                            >
-                                View detail
-                            </Button>
-                        </SimpleGrid>
-                    </CardFooter>
-                </Card>
-            </Box>
-            <Box>
-                <Card maxW='sm'>
-                    <CardBody>
-                        <Image
-                            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                            alt='Green double couch with wooden legs'
-                            borderRadius='lg'
-                        />
-                        <Stack mt='4' spacing='2'>
-                            <Heading size='md'>Card đồ họa NVIDIA RTX 3090</Heading>
-                            <Text noOfLines={2} fontSize="sm" mb='-0.5'>
-                                This sofa is perfect for modern tropical spaces, baroque inspired
-                                spaces, earthy toned spaces and for people who love a chic design with a
-                                sprinkle of vintage design.
-                            </Text>
-                            <Text fontSize="sm" mb='-0.5'>Đăng tải vào: 22/07/2023</Text>
-                            <Rating rating='2.5' numReviews={28} />
-                            <HStack spacing='4'>
-                                <Text fontWeight="bold" fontSize='md'>Giá: </Text>
-                                <Text fontWeight="bold" fontSize='md' color='blue'>10.000000 ether</Text>
-                            </HStack>
-                        </Stack>
-                    </CardBody>
-                    <CardFooter mt={-8}>
-                        <SimpleGrid columns={[1, null, 2]} spacing={8} w="full">
-                            <Button
-                                variant="solid"
-                                w="100%"
-                                colorScheme='blue'
-                            // onClick={handleAdd}
-                            >
-                                Add to cart
-                            </Button>
-                            <Button
-                                variant="outline"
-                                colorScheme="blue"
-                                w="100%"
-                            // onClick={handleView}
-                            >
-                                View detail
-                            </Button>
-                        </SimpleGrid>
-                    </CardFooter>
-                </Card>
-            </Box>
-            <Box>
-                <Card maxW='sm'>
-                    <CardBody>
-                        <Image
-                            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                            alt='Green double couch with wooden legs'
-                            borderRadius='lg'
-                        />
-                        <Stack mt='4' spacing='2'>
-                            <Heading size='md'>Card đồ họa NVIDIA RTX 3090</Heading>
-                            <Text noOfLines={2} fontSize="sm" mb='-0.5'>
-                                This sofa is perfect for modern tropical spaces, baroque inspired
-                                spaces, earthy toned spaces and for people who love a chic design with a
-                                sprinkle of vintage design.
-                            </Text>
-                            <Text fontSize="sm" mb='-0.5'>Đăng tải vào: 22/07/2023</Text>
-                            <Rating rating='2.5' numReviews={28} />
-                            <HStack spacing='4'>
-                                <Text fontWeight="bold" fontSize='md'>Giá: </Text>
-                                <Text fontWeight="bold" fontSize='md' color='blue'>10.000000 ether</Text>
-                            </HStack>
-                        </Stack>
-                    </CardBody>
-                    <CardFooter mt={-8}>
-                        <Flex w='full' justify='space-between'>
-                            <Button variant='solid' colorScheme='blue'>
-                                Buy now
-                            </Button>
-                            <Button variant='solid' colorScheme='blue'>
-                                Add to cart
-                            </Button>
-                        </Flex>
-                    </CardFooter>
-                </Card>
-            </Box>
-            <Box>
-                <Card maxW='sm'>
-                    <CardBody>
-                        <Image
-                            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                            alt='Green double couch with wooden legs'
-                            borderRadius='lg'
-                        />
-                        <Stack mt='4' spacing='2'>
-                            <Heading size='md'>Card đồ họa NVIDIA RTX 3090</Heading>
-                            <Text noOfLines={2} fontSize="sm" mb='-0.5'>
-                                This sofa is perfect for modern tropical spaces, baroque inspired
-                                spaces, earthy toned spaces and for people who love a chic design with a
-                                sprinkle of vintage design.
-                            </Text>
-                            <Text fontSize="sm" mb='-0.5'>Đăng tải vào: 22/07/2023</Text>
-                            <Rating rating='2.5' numReviews={28} />
-                            <HStack spacing='4'>
-                                <Text fontWeight="bold" fontSize='md'>Giá: </Text>
-                                <Text fontWeight="bold" fontSize='md' color='blue'>10.000000 ether</Text>
-                            </HStack>
-                        </Stack>
-                    </CardBody>
-                    <CardFooter mt={-8}>
-                        <Flex w='full' justify='space-between'>
-                            <Button variant='solid' colorScheme='blue'>
-                                Buy now
-                            </Button>
-                            <Button variant='solid' colorScheme='blue'>
-                                Add to cart
-                            </Button>
-                        </Flex>
-                    </CardFooter>
-                </Card>
-            </Box>
-            <Box>
-                <Card maxW='sm'>
-                    <CardBody>
-                        <Image
-                            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                            alt='Green double couch with wooden legs'
-                            borderRadius='lg'
-                        />
-                        <Stack mt='4' spacing='2'>
-                            <Heading size='md'>Card đồ họa NVIDIA RTX 3090</Heading>
-                            <Text noOfLines={2} fontSize="sm" mb='-0.5'>
-                                This sofa is perfect for modern tropical spaces, baroque inspired
-                                spaces, earthy toned spaces and for people who love a chic design with a
-                                sprinkle of vintage design.
-                            </Text>
-                            <Text fontSize="sm" mb='-0.5'>Đăng tải vào: 22/07/2023</Text>
-                            <Rating rating='2.5' numReviews={28} />
-                            <HStack spacing='4'>
-                                <Text fontWeight="bold" fontSize='md'>Giá: </Text>
-                                <Text fontWeight="bold" fontSize='md' color='blue'>10.000000 ether</Text>
-                            </HStack>
-                        </Stack>
-                    </CardBody>
-                    <CardFooter mt={-8}>
-                        <Flex w='full' justify='space-between'>
-                            <Button variant='solid' colorScheme='blue'>
-                                Buy now
-                            </Button>
-                            <Button variant='solid' colorScheme='blue'>
-                                Add to cart
-                            </Button>
-                        </Flex>
-                    </CardFooter>
-                </Card>
-            </Box>
+                                <Text fontSize="sm" mb='-0.5'>Đăng tải vào: {product.dateCreate}</Text>
+                                <Rating rating={product.rating} numReviews={product.numReviews} />
+                                <HStack spacing='4'>
+                                    <Text fontWeight="bold" fontSize='md'>Giá: </Text>
+                                    <Text noOfLines={1} fontWeight="bold" fontSize='md' color='blue'>{product.price} wei</Text>
+                                </HStack>
+                            </Stack>
+                        </CardBody>
+                        <CardFooter mt={-8}>
+                            <SimpleGrid columns={[1, null, 2]} spacing={8} w="full">
+                                <Button
+                                    variant="solid"
+                                    w="100%"
+                                    colorScheme='blue'
+                                // onClick={handleAdd}
+                                >
+                                    Add to cart
+                                </Button>
+                                <Button
+                                    variant="outline"
+                                    colorScheme="blue"
+                                    w="100%"
+                                // onClick={handleView}
+                                >
+                                    View detail
+                                </Button>
+                            </SimpleGrid>
+                        </CardFooter>
+                    </Card>
+                </Box>
+            ))}
+
         </SimpleGrid>
     )
 }

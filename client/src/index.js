@@ -6,15 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter } from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
+import HomeContextProvider from './contexts/HomeContext';
 
 serviceWorker.unregister();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <HomeContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </HomeContextProvider>
   </ChakraProvider>
 );
 

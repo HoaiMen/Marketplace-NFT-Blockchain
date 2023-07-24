@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, VStack, InputGroup, InputLeftAddon, Input, Slider, NumberInput, NumberInputField, SliderThumb, SliderMark, SliderTrack, Tooltip, SliderFilledTrack, Button } from "@chakra-ui/react";
+import { HomeContext } from "../contexts/HomeContext";
 
+const numbers = [0, 2, 4, 6, 8, 10];
 const SliderPrice = () => {
-    const [sliderValue, setSliderValue] = React.useState(10)
+    const { price, setPrice } = useContext(HomeContext)
+    // const [sliderValue, setSliderValue] = React.useState(10)
     const [showTooltip, setShowTooltip] = React.useState(false)
-    const handleChange = (value) => { setSliderValue(value) }
+    const handleChange = (value) => { setPrice(value) }
     return (
         <Box>
             <Slider
@@ -13,29 +16,16 @@ const SliderPrice = () => {
                 min={0}
                 max={10}
                 colorScheme='green'
-                value={sliderValue}
+                value={price}
                 onChange={handleChange}
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
             >
-                <SliderMark value={0} mt='1' ml='-1' fontSize='sm'>
-                    0
-                </SliderMark>
-                <SliderMark value={2} mt='1' ml='-1' fontSize='sm'>
-                    2
-                </SliderMark>
-                <SliderMark value={4} mt='1' ml='-1' fontSize='sm'>
-                    4
-                </SliderMark>
-                <SliderMark value={6} mt='1' ml='-1' fontSize='sm'>
-                    6
-                </SliderMark>
-                <SliderMark value={8} mt='1' ml='-1' fontSize='sm'>
-                    8
-                </SliderMark>
-                <SliderMark value={10} mt='1' ml='-1' fontSize='sm'>
-                    10
-                </SliderMark>
+                {numbers.map((number, index) => (
+                    <SliderMark key={index} onChange={() => setPrice(number)} value={number} mt='1' ml='-1' fontSize='sm'>
+                        {number}
+                    </SliderMark>
+                ))}
                 <SliderTrack>
                     <SliderFilledTrack />
                 </SliderTrack>
@@ -45,7 +35,7 @@ const SliderPrice = () => {
                     color='white'
                     placement='top'
                     isOpen={showTooltip}
-                    label={`${sliderValue}%`}
+                    label={`${price}%`}
                 >
                     <SliderThumb />
                 </Tooltip>
@@ -58,12 +48,12 @@ const SliderPrice = () => {
                 <InputGroup>
                     <InputLeftAddon children='Max' />
                     {/* <Input type='text' placeholder='Max' value={sliderValue} onChange={handleChange} /> */}
-                    <NumberInput maxW='full' mr='0rem' value={sliderValue} onChange={handleChange}>
+                    <NumberInput maxW='full' mr='0rem' value={price} onChange={handleChange}>
                         <NumberInputField />
                     </NumberInput>
                 </InputGroup>
 
-                <Button w='full' my='4' variant='solid' colorScheme="green">Xóa lựa chọn</Button>
+                <Button w='full' my='4' variant='solid' colorScheme="green" onClick={() => setPrice(10)}>Xóa lựa chọn</Button>
 
             </VStack>
         </Box>
