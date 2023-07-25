@@ -9,19 +9,22 @@ import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import HomeContextProvider from './contexts/HomeContext';
 import CartContextProvider from './contexts/CartContext';
+import ProductContextProvider from './contexts/ProductContext';
 
 serviceWorker.unregister();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ChakraProvider>
     <BrowserRouter>
-      <CartContextProvider>
-        <HomeContextProvider>
-          <App />
-        </HomeContextProvider>
-      </CartContextProvider>
+      <ProductContextProvider>
+        <CartContextProvider>
+          <HomeContextProvider>
+            <App />
+          </HomeContextProvider>
+        </CartContextProvider>
+      </ProductContextProvider>
     </BrowserRouter>
-  </ChakraProvider>
+  </ChakraProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

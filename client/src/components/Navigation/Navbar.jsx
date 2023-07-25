@@ -29,7 +29,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({ auth: { isAuthenticated, loading, user }, logout }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { amountInCart } = useContext(CartContext);
   const authLinks = (
@@ -68,7 +68,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
           </Center>
           <br />
           <Center>
-            <p>Username</p>
+            <p>{user && user.name}</p>
           </Center>
           <br />
           <MenuDivider />

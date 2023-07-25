@@ -21,13 +21,13 @@ const Home = () => {
           <Flex w="60%">
             <Stack direction={'row'} w="full">
               <InputGroup w="full">
-                <Input bg="white" pr="4.5rem" type="text" placeholder="Enter password" />
+                <Input bg="white" pr="4.5rem" type="text" placeholder="Tìm kiếm sản phẩm" />
                 <InputRightElement width="4.5rem">
                   <Button
                     colorScheme="green"
                     h="1.75rem"
                     size="sm"
-                    // onClick={handleClick}
+                  // onClick={handleClick}
                   >
                     Search
                   </Button>
@@ -45,7 +45,7 @@ const Home = () => {
               <Select
                 w="200px"
                 bg={'white'}
-                // onChange={(e) => handleChange(e)}
+              // onChange={(e) => handleChange(e)}
               >
                 {options.map((option, index) => (
                   <option key={index}>{option}</option>

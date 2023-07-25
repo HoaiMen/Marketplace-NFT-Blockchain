@@ -23,7 +23,7 @@ const HomeContextProvider = ({ children }) => {
   const [page, setPage] = useState(1);
   const navigate = useNavigate()
   const handleView = (id) => {
-    navigate(`/detail-product/${id}`);
+    navigate(`/products/${id}`);
   };
   const getAllProduct = async (page, pricee) => {
     try {

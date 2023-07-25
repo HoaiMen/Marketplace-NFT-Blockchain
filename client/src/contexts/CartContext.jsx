@@ -56,6 +56,7 @@ const CartContextProvider = ({ children }) => {
         try {
             const products = await getAllCarts();
             setCart(products.data)
+            console.log('productdata', products.data)
             setAmountInCart(products.data.length)
         } catch (err) {
             console.log(err)
@@ -71,6 +72,9 @@ const CartContextProvider = ({ children }) => {
             console.log(err)
         }
     }
+
+    console.log('cartcontext', cart)
+
 
     useEffect(() => {
         handleTotal();

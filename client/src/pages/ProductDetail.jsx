@@ -43,6 +43,7 @@ const ProductDetail = () => {
     try {
       const product = await getProduct(id)
       setProduct(product?.data);
+      console.log(product)
     } catch (err) {
       console.log(err)
     }
@@ -78,7 +79,7 @@ const ProductDetail = () => {
                 h="330px"
                 width="650px"
                 borderRadius="lg"
-                src={product.imageURL}
+                src={product.image}
                 alt="some good alt text"
                 objectFit="cover"
               />
@@ -121,7 +122,7 @@ const ProductDetail = () => {
               fontSize="lg"
               mb='-1'
             >
-              {product.content}
+              {product.description}
             </Text>
             <Divider />
             <Box>
@@ -142,7 +143,7 @@ const ProductDetail = () => {
                   </Text>{' '}
                   {product.category}
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <HStack>
                     <Text as={'span'} fontWeight={'bold'}>
                       Rating:
@@ -158,7 +159,7 @@ const ProductDetail = () => {
                     Đăng tải vào:
                   </Text>{' '}
                   {product.dateCreate}
-                </ListItem>
+                </ListItem> */}
               </List>
             </Box>
             <Button

@@ -50,11 +50,12 @@ const Cart = () => {
                                 {cart.map((item) => (
                                     <ItemCart
                                         key={item.id}
+                                        id={item.id}
                                         name={item.name}
                                         price={item.price}
                                         category={item.category}
-                                        image={item.imageURL}
-                                        dateCreate={item.dateCreate}
+                                        image={item.image}
+                                        // dateCreate={item.dateCreate}
                                         handleClick={() => handleDeleteCart(item.id)} />
                                 ))}
                             </Stack>

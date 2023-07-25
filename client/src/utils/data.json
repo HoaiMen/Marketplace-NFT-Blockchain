@@ -99,22 +99,6 @@
   ],
   "cart": [
     {
-      "id": 2,
-      "isNew": true,
-      "isHot": false,
-      "onSale": false,
-      "category": "Khác",
-      "content": "This sofa is perfect for modern tropical spaces, baroque inspired spaces, earthy toned spaces and for people who love a chic design with a sprinkle of vintage design.",
-      "imageURL": "https://kinhtechungkhoan.vn/stores/news_dataimages/2022/122022/06/14/in_article/03d6f2c2f30b5ade74124a114d566652.jpg?rt=20221206140618",
-      "name": "Xe Honda SH Mode 2023",
-      "price": 1000000000000000000,
-      "rating": 4.5,
-      "numReviews": 26,
-      "dateCreate": "23/7/2023",
-      "status": "Tạo sản phẩm",
-      "itemAddress": "0x1a895F10ac38b7B29a8987AC059e18B3aD70241f"
-    },
-    {
       "id": 1,
       "isNew": false,
       "isHot": true,

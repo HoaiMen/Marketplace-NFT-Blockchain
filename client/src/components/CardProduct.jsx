@@ -21,7 +21,7 @@ import { CartContext } from "../contexts/CartContext";
 const CardProduct = () => {
   const { page, products, price, type, getAllProduct, getProductCate, handleView } = useContext(HomeContext);
   const { handleAddCart } = useContext(CartContext)
-
+  console.log('new', products)
   useEffect(() => {
     getAllProduct(page, price)
   }, [page, price]);
@@ -29,6 +29,8 @@ const CardProduct = () => {
   useEffect(() => {
     getProductCate(type)
   }, [type])
+
+
   return (
     <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 4 }} spacing='40px'>
       {products.map((product) => (
@@ -43,7 +45,7 @@ const CardProduct = () => {
                 >
                   <Image
                     transform="scale(1.0)"
-                    src={product.imageURL}
+                    src={product.image}
                     alt={`Picture of`}
                     objectFit="cover"
                     h={{ base: '150px', md: '230px' }}
@@ -56,15 +58,15 @@ const CardProduct = () => {
                 </Link>
               </Box>
               <Stack mt='4' spacing='2'>
-                <Box w={{ base: '50%', md: '100%' }}>
+                {/* <Box w={{ base: '50%', md: '100%' }}>
                   {product.isNew && (<Status color="blue" lable="New" />)}
                   {product.isHot && (<Status color="red" lable="Hot" />)}
                   {product.onSale && (<Status color="green" lable="On Sale" />)}
-                </Box>
+                </Box> */}
                 <Heading size="md">{product.name}</Heading>
 
-                <Text fontSize="sm" mb='-0.5'>Đăng tải vào: {product.dateCreate}</Text>
-                <Rating rating={product.rating} numReviews={product.numReviews} />
+                {/* <Text fontSize="sm" mb='-0.5'>Đăng tải vào: {product.dateCreate}</Text> */}
+                {/* <Rating rating={product.rating} numReviews={product.numReviews} /> */}
                 <HStack spacing='4'>
                   <Text fontWeight="bold" fontSize='md'>Giá: </Text>
                   <Text noOfLines={1} fontWeight="bold" fontSize='md' color='blue'>{product.price} wei</Text>
