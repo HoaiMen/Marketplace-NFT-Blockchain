@@ -19,6 +19,10 @@ const Cart = new Schema(
       type: Number,
       require: true,
     },
+    owner: {
+      type: String,
+      require: true,
+    },
   },
   {
     timestamps: true,

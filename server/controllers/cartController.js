@@ -17,6 +17,7 @@ let addCart = async (req, res) => {
       name: req.body.name,
       price: req.body.price,
       category: req.body.category,
+      owner: req.body.owner,
     });
     console.log(req.body);
     const product = await newProductCart.save();

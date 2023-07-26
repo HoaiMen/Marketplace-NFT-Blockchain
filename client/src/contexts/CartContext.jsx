@@ -32,9 +32,7 @@ const CartContextProvider = ({ children }) => {
     };
     const handleAddCart = async (item) => {
         try {
-            const index = cart.findIndex((c) => c.id === item.id);
             console.log('cart:', cart)
-            console.log('cart:', index)
             const cartt = await addProductsCart(item);
             setCart([...cart, cartt.data]);
             setAmountInCart((prev) => prev + 1);
@@ -46,6 +44,7 @@ const CartContextProvider = ({ children }) => {
     const getProductsCart = async () => {
         try {
             const products = await getAllCarts();
+            console.log('cart get', products.data)
             setCart(products.data)
             setAmountInCart(products.data.length)
         } catch (err) {
@@ -54,7 +53,7 @@ const CartContextProvider = ({ children }) => {
     }
     const handleDeleteCart = async (id) => {
         try {
-            const products = await deleteCart(id);
+            await deleteCart(id);
             setCart([...cart])
             setAmountInCart((pre) => pre - 1)
             handleTotal();

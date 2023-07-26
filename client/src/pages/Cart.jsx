@@ -29,8 +29,7 @@ const Cart = () => {
     const [loading, setLoading] = useState(true);
     const [marketplace, setMarketplace] = useState(null);
     const [currentAddress, setCurrentAddress] = useState('');
-    const [cId, setCid] = useState(0);
-    const [cPrice, setCprice] = useState(0);
+    const [type, setType] = useState({});
 
     useEffect(() => {
         const loadBlockchainData = async () => {
@@ -94,25 +93,25 @@ const Cart = () => {
         const owner = await web3.eth.getAccounts();
         const currentAddress = owner[0];
         setCurrentAddress(currentAddress);
-
-        let all = productt.data
-        let result = productss.data
-        let data = []
+        let all = productt?.data
+        let result = productss?.data
         console.log('in get', result)
-        console.log('get all', all)
 
-        for (let i = 0; i < all.length; i++) {
+        for (let i = 0; i <= all.length; i++) {
             const product = await marketplace.methods.products(i).call();
             // console.log('pppp', product)
-            if (product.owner !== currentAddress && product.name === result.name) {
-                console.log('pppp', product.id)
-                console.log('pppp', product.price)
-                setCid(product.id)
-                setCprice(product.price);
+            if (product.name === result.name) {
+                console.log('_id', product.id)
+                console.log('pppp', product)
+                // setType(product)
+                purchaseProduct(product.id, product.price)
             }
         }
-        purchaseProduct(cId, cPrice)
-        // console.log("productttt", productt)
+        // if (type) {
+
+        // } else {
+        //     console.log("Dang loading")
+        // }
     };
 
     useEffect(() => {
