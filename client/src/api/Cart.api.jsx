@@ -11,3 +11,7 @@ export const getAllCarts = () => {
 export const deleteCart = (id) => {
     return http.delete(`http://localhost:5000/api/cart/delete/${id}`);
 };
+
+export const getDetailCart = (id) => {
+    return http.get(`http://localhost:5000/api/cart/detail/${id}`);
+};

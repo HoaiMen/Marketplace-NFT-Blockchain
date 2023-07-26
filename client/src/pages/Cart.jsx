@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
     Box,
     Flex,
@@ -14,10 +14,106 @@ import ItemCart from '../components/CartItem';
 import { CartOrder } from '../components/CartOrder';
 import { NavLink, useParams } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
+import Marketplace from '../abis/Marketplace.json';
+import Web3 from 'web3';
+import { getDetailCart } from '../api/Cart.api';
+import { getAllProducts } from '../api/Product.api';
 
 const Cart = () => {
     const { cart, amountInCart, getProductsCart, handleDeleteCart, total } = useContext(CartContext)
     const param = useParams()
+
+    const [account, setAccount] = useState('');
+    const [productCount, setProductCount] = useState(0);
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [marketplace, setMarketplace] = useState(null);
+    const [currentAddress, setCurrentAddress] = useState('');
+    const [cId, setCid] = useState(0);
+    const [cPrice, setCprice] = useState(0);
+
+    useEffect(() => {
+        const loadBlockchainData = async () => {
+            await loadWeb3();
+            const web3 = window.web3;
+            // Load account
+            const accounts = await web3.eth.getAccounts();
+            setAccount(accounts[0]);
+            const networkId = await web3.eth.net.getId();
+            const networkData = Marketplace.networks[networkId];
+            if (networkData) {
+                const marketplaceContract = new web3.eth.Contract(Marketplace.abi, networkData.address);
+                setMarketplace(marketplaceContract);
+                const productCount = await marketplaceContract.methods.productCount().call();
+                setProductCount(productCount);
+                // Load products
+                const loadedProducts = [];
+                for (let i = 1; i <= productCount; i++) {
+                    const product = await marketplaceContract.methods.products(i).call();
+                    loadedProducts.push(product);
+                }
+                setProducts(loadedProducts);
+                setLoading(false);
+            } else {
+                window.alert('Marketplace contract not deployed to detected network.');
+            }
+        };
+
+        loadBlockchainData();
+    }, []);
+
+    const loadWeb3 = async () => {
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
+            await window.ethereum.enable();
+        } else if (window.web3) {
+            window.web3 = new Web3(window.web3.currentProvider);
+        } else {
+            window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        }
+    };
+
+
+    const purchaseProduct = async (id, price) => {
+        setLoading(true);
+        await marketplace.methods
+            .purchaseProduct(id)
+            .send({ from: account, value: price })
+            .once('receipt', (receipt) => {
+                setLoading(false);
+            });
+    };
+
+    async function handleSubmit(id) {
+        const productss = await getDetailCart(id)
+        const productt = await getAllProducts();
+
+        // Lấy địa chỉ owner từ hợp đồng Marketplace
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const web3 = new Web3(window.ethereum);
+        const owner = await web3.eth.getAccounts();
+        const currentAddress = owner[0];
+        setCurrentAddress(currentAddress);
+
+        let all = productt.data
+        let result = productss.data
+        let data = []
+        console.log('in get', result)
+        console.log('get all', all)
+
+        for (let i = 0; i < all.length; i++) {
+            const product = await marketplace.methods.products(i).call();
+            // console.log('pppp', product)
+            if (product.owner !== currentAddress && product.name === result.name) {
+                console.log('pppp', product.id)
+                console.log('pppp', product.price)
+                setCid(product.id)
+                setCprice(product.price);
+            }
+        }
+        purchaseProduct(cId, cPrice)
+        // console.log("productttt", productt)
+    };
 
     useEffect(() => {
         getProductsCart()
@@ -47,16 +143,20 @@ const Cart = () => {
                             </Heading>
 
                             <Stack >
-                                {cart.map((item) => (
+                                {cart.map((item, index) => (
                                     <ItemCart
-                                        key={item.id}
-                                        id={item.id}
+                                        key={index}
+                                        id={item._id}
                                         name={item.name}
                                         price={item.price}
                                         category={item.category}
                                         image={item.image}
-                                        // dateCreate={item.dateCreate}
-                                        handleClick={() => handleDeleteCart(item.id)} />
+                                        dateCreate={item.createdAt}
+                                        handleClick={() => handleDeleteCart(item._id)}
+                                        handlePurchase={() => {
+                                            handleSubmit(item._id);
+                                        }}
+                                    />
                                 ))}
                             </Stack>
                         </Stack>

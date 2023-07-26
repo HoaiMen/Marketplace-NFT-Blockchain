@@ -29,7 +29,16 @@ let addCart = async (req, res) => {
 
 let deleteCarts = async (req, res) => {
   try {
-    const products = await Cart.findByIdAndDelete(req.params.id);
+    await Cart.findByIdAndDelete(req.params.id);
+    res.status(200).json('xóa thành công');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+let getDeleteCart = async (req, res) => {
+  try {
+    const products = await Cart.findById(req.params.id);
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
@@ -40,4 +49,5 @@ module.exports = {
   getAllCart,
   addCart,
   deleteCarts,
+  getDeleteCart,
 };

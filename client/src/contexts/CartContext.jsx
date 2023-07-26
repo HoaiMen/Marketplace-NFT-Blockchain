@@ -33,21 +33,12 @@ const CartContextProvider = ({ children }) => {
     const handleAddCart = async (item) => {
         try {
             const index = cart.findIndex((c) => c.id === item.id);
-            if (index !== -1) {
-                console.log("Da co trong gio")
-                return (toast({
-                    title: 'Cảnh báo.',
-                    description: "Sản phẩm đã có trong giỏ hàng.",
-                    status: 'warning',
-                    duration: 9000,
-                    isClosable: true,
-                }))
-            } else {
-                const cartt = await addProductsCart(item);
-                setCart([...cart, cartt.data]);
-                setAmountInCart((prev) => prev + 1);
-                handleTotal();
-            }
+            console.log('cart:', cart)
+            console.log('cart:', index)
+            const cartt = await addProductsCart(item);
+            setCart([...cart, cartt.data]);
+            setAmountInCart((prev) => prev + 1);
+            handleTotal();
         } catch (err) {
             console.log(err)
         }
@@ -56,7 +47,6 @@ const CartContextProvider = ({ children }) => {
         try {
             const products = await getAllCarts();
             setCart(products.data)
-            console.log('productdata', products.data)
             setAmountInCart(products.data.length)
         } catch (err) {
             console.log(err)
@@ -65,7 +55,7 @@ const CartContextProvider = ({ children }) => {
     const handleDeleteCart = async (id) => {
         try {
             const products = await deleteCart(id);
-            setCart([...cart, products.data])
+            setCart([...cart])
             setAmountInCart((pre) => pre - 1)
             handleTotal();
         } catch (err) {
@@ -73,7 +63,7 @@ const CartContextProvider = ({ children }) => {
         }
     }
 
-    console.log('cartcontext', cart)
+    console.log('so san pham trong gio', cart)
 
 
     useEffect(() => {

@@ -12,12 +12,13 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image }) => {
+const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image, handlePurchase }) => {
     const [account, setAccount] = useState('');
     const [productCount, setProductCount] = useState(0);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [marketplace, setMarketplace] = useState(null);
+    const [currentAddress, setCurrentAddress] = useState('');
 
     useEffect(() => {
         const loadBlockchainData = async () => {
@@ -60,6 +61,7 @@ const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image })
         }
     };
 
+
     const purchaseProduct = async (id, price) => {
         setLoading(true);
         await marketplace.methods
@@ -68,6 +70,22 @@ const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image })
             .once('receipt', (receipt) => {
                 setLoading(false);
             });
+    };
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        // Lấy địa chỉ owner từ hợp đồng Marketplace
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const web3 = new Web3(window.ethereum);
+        const owner = await web3.eth.getAccounts();
+        const currentAddress = owner[0];
+        setCurrentAddress(currentAddress);
+
+        // name={id}
+        // value={price}
+        purchaseProduct(event.target.name, event.target.value)
+        // console.log("productttt", productt)
     };
 
 
@@ -125,9 +143,7 @@ const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image })
                     name={id}
                     value={price}
                     colorScheme='green'
-                    onClick={(event) => {
-                        purchaseProduct(event.target.name, event.target.value);
-                    }}
+                    onClick={handlePurchase}
                 >
                     Mua hàng
                 </Button>
@@ -136,3 +152,4 @@ const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image })
     );
 }
 export default ItemCart;
+

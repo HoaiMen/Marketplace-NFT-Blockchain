@@ -3,6 +3,7 @@ const Product = require('../models/Product');
 let getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
+    console.log('server lay product', products);
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
@@ -27,6 +28,9 @@ let addProducts = async (req, res) => {
       price: req.body.price,
       category: req.body.category,
       description: req.body.description,
+      // status: 'Tạo sản phẩm',
+      owner: req.body.owner,
+      itemAddress: req.body.itemAddress,
     });
     console.log(req.body);
     const product = await newProduct.save();

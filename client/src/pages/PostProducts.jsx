@@ -18,40 +18,11 @@ import Lottie from 'react-lottie';
 import animationData from '../Lottie/create.json';
 import axios from 'axios';
 import { ProductContext } from '../contexts/ProductContext';
+import { BiChevronsLeft } from 'react-icons/bi';
 
 const options = ['Thực phẩm', 'Đồ nội thất', 'Thiết bị công nghệ', 'Phụ kiện điện tử', 'Khác'];
 
 const PostProducts = () => {
-  const productNameRef = useRef(null);
-  const productPriceRef = useRef(null);
-  const productImgRef = useRef(null);
-  const productDescRef = useRef(null);
-  const productCategoryRef = useRef(null);
-  const { handleAddProduct, setProduct } = useContext(ProductContext)
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    const rawPrice = productPriceRef.current.value;
-    const parsedPrice = parseFloat(rawPrice);
-
-    if (isNaN(parsedPrice) || parsedPrice <= 0) {
-      console.error('Vui lòng nhập một số nguyên không âm vào trường giá sản phẩm.');
-      return;
-    }
-
-    const price = window.web3.utils.toWei(parsedPrice.toString(), 'ether');
-    const productt = {
-      name: productNameRef.current.value,
-      price: price,
-      image: productImgRef.current.value,
-      description: productDescRef.current.value,
-      category: productCategoryRef.current.value
-    }
-    createProduct(productt.name, productt.price);
-    handleAddProduct(productt);
-    console.log("productttt", productt)
-  };
-
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -61,19 +32,20 @@ const PostProducts = () => {
     }
   };
 
+  const productNameRef = useRef(null);
+  const productPriceRef = useRef(null);
+  const productImgRef = useRef(null);
+  const productDescRef = useRef(null);
+  const productCategoryRef = useRef(null);
+  const { handleAddProduct } = useContext(ProductContext)
+
   const [account, setAccount] = useState('');
   const [productCount, setProductCount] = useState(0);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [marketplace, setMarketplace] = useState(null);
-  const [currentAddress, setCurrentAddress] = useState('');
-
-
-
-  useEffect(() => {
-    loadWeb3();
-    loadBlockchainData();
-  }, []);
+  // const [currentAddress, setCurrentAddress] = useState('');
+  const [itemHash, setItemHash] = useState('')
 
   async function loadWeb3() {
     if (window.ethereum) {
@@ -125,7 +97,7 @@ const PostProducts = () => {
       // Lấy địa chỉ owner từ hợp đồng Marketplace
       const owner = await web3.eth.getAccounts();
       const currentAddress = owner[0];
-      setCurrentAddress(currentAddress);
+      // setCurrentAddress(currentAddress);
 
       await marketplace.methods
         .createProduct(name, price)
@@ -133,8 +105,49 @@ const PostProducts = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error while creating product:', error);
+      setLoading(false);
+
     }
   }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    //Đổi đơn vị của price
+    const rawPrice = productPriceRef.current.value;
+    const parsedPrice = parseFloat(rawPrice);
+    const price = window.web3.utils.toWei(parsedPrice.toString(), 'ether');
+    if (isNaN(parsedPrice) || parsedPrice <= 0) {
+      console.error('Vui lòng nhập một số nguyên không âm vào trường giá sản phẩm.');
+      return;
+    }
+
+    // Lấy địa chỉ owner từ hợp đồng Marketplace
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const web3 = new Web3(window.ethereum);
+    const owner = await web3.eth.getAccounts();
+    const currentAddress = owner[0];
+    // setCurrentAddress(currentAddress);
+
+
+    const productt = {
+      name: productNameRef.current.value,
+      price: price,
+      image: productImgRef.current.value,
+      description: productDescRef.current.value,
+      category: productCategoryRef.current.value,
+      owner: currentAddress,
+      itemAddress: ''
+    }
+
+    createProduct(productt.name, productt.price);
+    handleAddProduct(productt);
+    console.log("productttt", productt)
+  };
+
+  useEffect(() => {
+    loadWeb3();
+    loadBlockchainData();
+  }, []);
 
   return (
     <DefaultLayout>

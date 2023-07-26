@@ -20,19 +20,6 @@ import Rating from '../components/Rating';
 import { getProduct } from '../api/Product.api';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext'
-const BlogTags = (props) => {
-  return (
-    <HStack spacing={2} marginTop={props.marginTop}>
-      {props.tags.map((tag) => {
-        return (
-          <Tag size={'md'} variant="solid" colorScheme="orange" key={tag}>
-            {tag}
-          </Tag>
-        );
-      })}
-    </HStack>
-  );
-};
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({})
@@ -43,7 +30,6 @@ const ProductDetail = () => {
     try {
       const product = await getProduct(id)
       setProduct(product?.data);
-      console.log(product)
     } catch (err) {
       console.log(err)
     }
@@ -143,14 +129,14 @@ const ProductDetail = () => {
                   </Text>{' '}
                   {product.category}
                 </ListItem>
-                {/* <ListItem>
+                <ListItem>
                   <HStack>
                     <Text as={'span'} fontWeight={'bold'}>
                       Rating:
                     </Text>{' '}
                     <Rating
-                      rating={product.rating}
-                      numReviews={product.numReviews}
+                      rating={3.5}
+                      numReviews={34}
                     />
                   </HStack>
                 </ListItem>
@@ -158,8 +144,8 @@ const ProductDetail = () => {
                   <Text as={'span'} fontWeight={'bold'}>
                     Đăng tải vào:
                   </Text>{' '}
-                  {product.dateCreate}
-                </ListItem> */}
+                  {product.createdAt}
+                </ListItem>
               </List>
             </Box>
             <Button
@@ -177,4 +163,18 @@ const ProductDetail = () => {
     </DefaultLayout>
   );
 }
+const BlogTags = (props) => {
+  return (
+    <HStack spacing={2} marginTop={props.marginTop}>
+      {props.tags.map((tag) => {
+        return (
+          <Tag size={'md'} variant="solid" colorScheme="orange" key={tag}>
+            {tag}
+          </Tag>
+        );
+      })}
+    </HStack>
+  );
+};
+
 export default ProductDetail;

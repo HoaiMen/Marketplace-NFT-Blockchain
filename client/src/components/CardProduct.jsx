@@ -19,12 +19,12 @@ import { HomeContext } from "../contexts/HomeContext";
 import { CartContext } from "../contexts/CartContext";
 
 const CardProduct = () => {
-  const { page, products, price, type, getAllProduct, getProductCate, handleView } = useContext(HomeContext);
+  const { products, price, type, getAllProduct, getProductCate, handleView } = useContext(HomeContext);
   const { handleAddCart } = useContext(CartContext)
   console.log('new', products)
   useEffect(() => {
-    getAllProduct(page, price)
-  }, [page, price]);
+    getAllProduct(price)
+  }, [price]);
 
   useEffect(() => {
     getProductCate(type)
@@ -33,15 +33,15 @@ const CardProduct = () => {
 
   return (
     <SimpleGrid columns={{ sm: 2, md: 2, lg: 3, xl: 4 }} spacing='40px'>
-      {products.map((product) => (
-        <Box key={product.id}>
+      {products.map((product, index) => (
+        <Box key={index}>
           <Card maxW='sm'>
             <CardBody>
               <Box borderRadius="lg" overflow="hidden">
                 <Link
                   textDecoration="none"
                   _hover={{ textDecoration: 'none' }}
-                  onClick={() => handleView(product.id)}
+                  onClick={() => handleView(product?._id)}
                 >
                   <Image
                     transform="scale(1.0)"
@@ -64,9 +64,9 @@ const CardProduct = () => {
                   {product.onSale && (<Status color="green" lable="On Sale" />)}
                 </Box> */}
                 <Heading size="md">{product.name}</Heading>
-
-                {/* <Text fontSize="sm" mb='-0.5'>Đăng tải vào: {product.dateCreate}</Text> */}
-                {/* <Rating rating={product.rating} numReviews={product.numReviews} /> */}
+                <Rating rating={3.5} numReviews={34} />
+                <Text fontSize="md" mb='-0.5'>Danh mục: {product.category}</Text>
+                <Text fontSize="sm" mb='-0.5'>Đăng tải vào: {product.createdAt}</Text>
                 <HStack spacing='4'>
                   <Text fontWeight="bold" fontSize='md'>Giá: </Text>
                   <Text noOfLines={1} fontWeight="bold" fontSize='md' color='blue'>{product.price} wei</Text>
@@ -87,7 +87,7 @@ const CardProduct = () => {
                   variant="outline"
                   colorScheme="blue"
                   w="100%"
-                  onClick={() => handleView(product.id)}
+                  onClick={() => handleView(product?._id)}
                 >
                   View detail
                 </Button>
