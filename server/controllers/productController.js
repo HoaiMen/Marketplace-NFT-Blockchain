@@ -28,7 +28,7 @@ let addProducts = async (req, res) => {
       price: req.body.price,
       category: req.body.category,
       description: req.body.description,
-      // status: 'Tạo sản phẩm',
+      status: false,
       owner: req.body.owner,
       itemAddress: req.body.itemAddress,
     });

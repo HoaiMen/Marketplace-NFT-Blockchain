@@ -16,12 +16,14 @@ import {
 } from '@chakra-ui/react';
 import DefaultLayout from '../layouts/DefaultLayout';
 import ManagementP from '../components/ManagementP';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { HomeContext } from '../contexts/HomeContext';
 
 const ProductsManage = () => {
   const [currentAddress, setCurrentAddress] = useState('');
   const [accountBalance, setAccountBalance] = useState(0);
   const [total, setTotal] = useState(0);
+  const [sumPrice, setSumPrice] = useState(0)
 
   useEffect(() => {
     const loadBlockchainData = async () => {
@@ -48,9 +50,18 @@ const ProductsManage = () => {
             // Kiểm tra xem sản phẩm này có thuộc về chủ sở hữu hiện tại hay không
             if (result[i].owner === currentAddress) {
               userProductsData.push(result[i]);
+              console.log(userProductsData)
             }
           }
 
+          let sum = 0;
+          for (let i = 0; i < userProductsData.length; i++) {
+            console.log(userProductsData[i].price)
+            sum += userProductsData[i].price;
+          }
+          const parsedPrice = parseFloat(sum);
+          const pricee = web3.utils.fromWei(parsedPrice.toString(), 'ether');
+          setSumPrice(pricee);
           setTotal(userProductsData.length)
 
         } catch (error) {
@@ -158,7 +169,7 @@ const ProductsManage = () => {
                       <VStack alignItems="start">
                         <Heading fontSize="lg">Tổng Ether của tất cả sản phẩm:</Heading>
                         <Text fontWeight="medium" color="green.400">
-                          Cập nhật lần cuối lúc: 23/1/2023
+                          {sumPrice}
                         </Text>
                       </VStack>
                     </Td>

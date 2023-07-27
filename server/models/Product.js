@@ -31,10 +31,10 @@ const Product = new Schema(
       type: String,
       require: true,
     },
-    // status: {
-    //   type: String,
-    //   require: true,
-    // },
+    status: {
+      type: Boolean,
+      require: true,
+    },
   },
   {
     timestamps: true,

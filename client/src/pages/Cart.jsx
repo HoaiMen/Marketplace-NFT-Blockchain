@@ -8,6 +8,7 @@ import {
     Link,
     Stack,
     Container,
+    Button
 } from '@chakra-ui/react';
 import DefaultLayout from '../layouts/DefaultLayout';
 import ItemCart from '../components/CartItem';
@@ -29,8 +30,6 @@ const Cart = () => {
     const [loading, setLoading] = useState(true);
     const [marketplace, setMarketplace] = useState(null);
     const [currentAddress, setCurrentAddress] = useState('');
-    const [type, setType] = useState({});
-
     useEffect(() => {
         const loadBlockchainData = async () => {
             await loadWeb3();
@@ -72,7 +71,6 @@ const Cart = () => {
         }
     };
 
-
     const purchaseProduct = async (id, price) => {
         setLoading(true);
         await marketplace.methods
@@ -93,36 +91,27 @@ const Cart = () => {
         const owner = await web3.eth.getAccounts();
         const currentAddress = owner[0];
         setCurrentAddress(currentAddress);
+
         let all = productt?.data
         let result = productss?.data
-        console.log('in get', result)
-
         for (let i = 0; i <= all.length; i++) {
             const product = await marketplace.methods.products(i).call();
-            // console.log('pppp', product)
             if (product.name === result.name) {
-                console.log('_id', product.id)
-                console.log('pppp', product)
-                // setType(product)
+                // console.log('pppp', product)
                 purchaseProduct(product.id, product.price)
             }
         }
-        // if (type) {
-
-        // } else {
-        //     console.log("Dang loading")
-        // }
     };
 
     useEffect(() => {
         getProductsCart()
     }, [amountInCart]);
-
     useEffect(() => {
         if (param.id) {
             handleDeleteCart(param.id)
         }
     }, [param.id]);
+
     return (
         <DefaultLayout>
             <Container maxW={'full'}>
@@ -152,10 +141,19 @@ const Cart = () => {
                                         image={item.image}
                                         dateCreate={item.createdAt}
                                         handleClick={() => handleDeleteCart(item._id)}
-                                        handlePurchase={() => {
-                                            handleSubmit(item._id);
-                                        }}
-                                    />
+
+                                    >
+                                        {!item.status ? (<Button
+                                            w={'full'}
+                                            variant={'solid'}
+                                            colorScheme='green'
+                                            onClick={() => {
+                                                handleSubmit(item._id);
+                                            }}
+                                        >
+                                            Mua hàng
+                                        </Button>) : null}
+                                    </ItemCart>
                                 ))}
                             </Stack>
                         </Stack>

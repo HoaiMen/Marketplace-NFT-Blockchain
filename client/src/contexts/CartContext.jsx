@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { addProductsCart, deleteCart, getAllCarts } from "../api/Cart.api";
 import { useState } from "react";
-import { useToast } from '@chakra-ui/react'
+// import { useToast } from '@chakra-ui/react'
+// import Web3 from 'web3';
 
 export const CartContext = React.createContext({
     cart: [],
@@ -17,10 +18,11 @@ export const CartContext = React.createContext({
 })
 
 const CartContextProvider = ({ children }) => {
-    const toast = useToast()
+    // const toast = useToast()
     const [cart, setCart] = useState([]);
     const [amountInCart, setAmountInCart] = useState(0);
     const [total, setTotal] = useState(0);
+    // const [accountAdd, setAccountAdd] = useState('');
 
 
     const handleTotal = () => {
@@ -32,21 +34,46 @@ const CartContextProvider = ({ children }) => {
     };
     const handleAddCart = async (item) => {
         try {
-            console.log('cart:', cart)
+            // Lấy địa chỉ hiện tại của người dùng
+            // const web3 = new Web3(window.ethereum);
+            // const accounts = await web3.eth.getAccounts();
+            // const accountAd = accounts[0]
+            // console.log("account hiện tại:", accountAd)
+            // setAccountAdd(accounts[0]);
+            // if (accountAd) {
             const cartt = await addProductsCart(item);
             setCart([...cart, cartt.data]);
             setAmountInCart((prev) => prev + 1);
             handleTotal();
+            // } else {
+            //     console.log("Da co trong gio")
+            //     return (toast({
+            //         title: 'Cảnh báo.',
+            //         description: "Đang load current Address",
+            //         status: 'warning',
+            //         duration: 9000,
+            //         isClosable: true,
+            //     }))
+            // }
         } catch (err) {
             console.log(err)
         }
     }
     const getProductsCart = async () => {
         try {
+            // // Lấy địa chỉ hiện tại của người dùng
+            // const web3 = new Web3(window.ethereum);
+            // const accounts = await web3.eth.getAccounts();
+            // const accountCur = accounts[0]
+            // console.log("account hiện tại:", accountCur)
+            // console.log("account khi thêm:", accountAdd)
+            // if (accountCur === accountAdd) {
             const products = await getAllCarts();
-            console.log('cart get', products.data)
+            // console.log('cart get', products.data)
             setCart(products.data)
             setAmountInCart(products.data.length)
+            // }
+
         } catch (err) {
             console.log(err)
         }

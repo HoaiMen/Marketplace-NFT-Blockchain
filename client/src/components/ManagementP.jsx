@@ -8,6 +8,7 @@ import { getAllProducts } from "../api/Product.api";
 const ManagementP = () => {
   const { products, setProducts } = useContext(HomeContext);
   const [data, setData] = useState([])
+  const [status, setStatus] = useState(false)
 
   const getManageProduct = async () => {
     try {
@@ -28,10 +29,15 @@ const ManagementP = () => {
 
       for (let i = 0; i < result.length; i++) {
         const product = await marketplace.methods.products(i).call();
-        console.log(product)
-        if (product.owner.toLowerCase() === currentAddress.toLowerCase()) {
+        // console.log(product)
+        // if ((product.owner.toLowerCase() === currentAddress.toLowerCase() && result[i].name === product.name) || product.purchased === true) {
+
+        if ((product.owner.toLowerCase() === currentAddress.toLowerCase()) || product.purchased === true) {
           productsData.push(product);
           // console.log(productsData)
+        }
+        if (product.purchased === true) {
+          setStatus(true)
         }
         if (result[i].owner === currentAddress) {
           data.push(result[i])
@@ -41,21 +47,25 @@ const ManagementP = () => {
       for (let i = 0; i < data.length; i++) {
         if (i < productsData.length) {
           data[i].itemAddress = productsData[i].itemHash;
+          data[i].status = productsData[i].purchased;
           userProductsData.push(data[i]);
+          console.log('userdata:', userProductsData)
         }
       }
+
 
       setProducts(userProductsData);
     } catch (err) {
       console.log(err)
     }
   }
-  console.log("ManagementP:", products)
+  // console.log("ManagementP:", products)
 
   useEffect(() => {
     // getProducts();
     getManageProduct()
   }, []);
+
 
   return (
     <SimpleGrid columns={3} spacing="40px">
@@ -69,7 +79,7 @@ const ManagementP = () => {
           bg="white"
           border="1px"
           borderColor="black"
-          boxShadow="6px 6px 0 green"
+          boxShadow={product.status ? "8px 8px 0 blue" : "8px 8px 0 green"}
         >
           <Box h="200px" borderBottom="1px" borderColor="black">
             {/* Hiển thị hình ảnh sản phẩm */}
@@ -86,7 +96,7 @@ const ManagementP = () => {
             </Heading>
             <Text color="blue" fontSize="lg" fontWeight={'medium'}>Giá: {Web3.utils.fromWei(product.price.toString(), 'ether')} Eth</Text>
             <Text color="gray.500">Category: {product.category}</Text>
-            <Text color="gray.500">Trạng thái: {product.purchased ? 'Đã mua' : 'Chưa mua'}</Text>
+            <Text color={product.status ? "red" : "gray.500"} fontSize='lg' fontWeight='bold'>Trạng thái: {product.status ? 'Đã mua' : 'Chưa mua'}</Text>
             <Text color="gray.500">Item address: {product.itemAddress}</Text>
           </Box>
         </Box>

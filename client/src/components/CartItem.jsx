@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import Marketplace from '../abis/Marketplace.json';
-import Web3 from 'web3';
+import React from 'react';
+// import Marketplace from '../abis/Marketplace.json';
+// import Web3 from 'web3';
 
 import {
     Button,
@@ -12,7 +12,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image, handlePurchase }) => {
+const ItemCart = ({ children, id, name, price, category, dateCreate, handleClick, image }) => {
     return (
         <Stack
             mt={4}
@@ -61,16 +61,7 @@ const ItemCart = ({ id, name, price, category, dateCreate, handleClick, image, h
                 <Button w={'full'} variant={'solid'} colorScheme='green' onClick={handleClick}>
                     Xóa sản phẩm
                 </Button>
-                <Button
-                    w={'full'}
-                    variant={'solid'}
-                    name={id}
-                    value={price}
-                    colorScheme='green'
-                    onClick={handlePurchase}
-                >
-                    Mua hàng
-                </Button>
+                {children}
             </VStack>
         </Stack>
     );
