@@ -12,7 +12,7 @@ import {
     VStack,
 } from '@chakra-ui/react';
 
-const ItemCart = ({ children, id, name, price, category, dateCreate, handleClick, image }) => {
+const ItemCart = ({ children, id, name, price, category, dateCreate, handleClick, image, itemAddress }) => {
     return (
         <Stack
             mt={4}
@@ -21,11 +21,13 @@ const ItemCart = ({ children, id, name, price, category, dateCreate, handleClick
             bg={'gray.100'}
             boxShadow={'xl'}
             padding={4}>
-            <Flex flex={1} bg="blue.200">
+            <Flex
+                flex={1}
+                w={{ base: '150px', md: '240px' }}
+                bg="blue.200">
                 <Image
                     objectFit="cover"
-                    // h={{ base: '150px', md: '230px' }}
-                    width="100%"
+                    w='100%'
                     boxSize="100%"
                     src={image}
                 />
@@ -35,13 +37,17 @@ const ItemCart = ({ children, id, name, price, category, dateCreate, handleClick
                 flexDirection="column"
                 alignItems="start"
                 px={2}
+                w='200px'
                 pt={1} spacing='-2'>
 
                 <Heading fontSize={'xl'} fontFamily={'body'}>
                     {name}
                 </Heading>
                 <Text fontWeight='medium' color={'green.300'} >
-                    Giá: {price} wei
+                    Giá: {price} Ether
+                </Text>
+                <Text fontSize='sm' color={'gray.400'} >
+                    ItemAddress: {itemAddress}
                 </Text>
 
                 <Text

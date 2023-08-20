@@ -11,18 +11,16 @@ let getAllCart = async (req, res) => {
 
 let addCart = async (req, res) => {
   try {
-    console.log(req.body);
     const newProductCart = await new Cart({
       image: req.body.image,
       name: req.body.name,
       price: req.body.price,
       category: req.body.category,
       owner: req.body.owner,
+      itemAddress: req.body.itemAddress,
       status: false,
     });
-    console.log(req.body);
     const product = await newProductCart.save();
-    console.log(newProductCart);
     res.status(200).json(product);
   } catch (err) {
     res.status(500).json(err);

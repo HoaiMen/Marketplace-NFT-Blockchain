@@ -46,22 +46,19 @@ const ProductsManage = () => {
           let userProductsData = [];
           let result = productss.data
           for (let i = 0; i < result.length; i++) {
-            // const product = await marketplace.methods.products(i).call();
             // Kiểm tra xem sản phẩm này có thuộc về chủ sở hữu hiện tại hay không
             if (result[i].owner === currentAddress) {
               userProductsData.push(result[i]);
-              console.log(userProductsData)
+              // console.log(userProductsData)
             }
           }
 
           let sum = 0;
           for (let i = 0; i < userProductsData.length; i++) {
-            console.log(userProductsData[i].price)
+            // console.log(userProductsData[i].price)
             sum += userProductsData[i].price;
           }
-          const parsedPrice = parseFloat(sum);
-          const pricee = web3.utils.fromWei(parsedPrice.toString(), 'ether');
-          setSumPrice(pricee);
+          setSumPrice(sum);
           setTotal(userProductsData.length)
 
         } catch (error) {
@@ -169,7 +166,7 @@ const ProductsManage = () => {
                       <VStack alignItems="start">
                         <Heading fontSize="lg">Tổng Ether của tất cả sản phẩm:</Heading>
                         <Text fontWeight="medium" color="green.400">
-                          {sumPrice}
+                          {Web3.utils.fromWei(sumPrice.toString(), 'ether')}
                         </Text>
                       </VStack>
                     </Td>

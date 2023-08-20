@@ -17,11 +17,13 @@ import {
 import Rating from './Rating';
 import { HomeContext } from "../contexts/HomeContext";
 import { CartContext } from "../contexts/CartContext";
+import Web3 from 'web3';
+
 
 const CardProduct = () => {
   const { products, price, type, getAllProduct, getProductCate, handleView } = useContext(HomeContext);
   const { handleAddCart } = useContext(CartContext)
-  console.log('new', products)
+  // console.log('new', products)
   useEffect(() => {
     getAllProduct(price)
   }, [price]);
@@ -58,18 +60,14 @@ const CardProduct = () => {
                 </Link>
               </Box>
               <Stack mt='4' spacing='2'>
-                {/* <Box w={{ base: '50%', md: '100%' }}>
-                  {product.isNew && (<Status color="blue" lable="New" />)}
-                  {product.isHot && (<Status color="red" lable="Hot" />)}
-                  {product.onSale && (<Status color="green" lable="On Sale" />)}
-                </Box> */}
-                <Heading size="md">{product.name}</Heading>
+                <Heading noOfLines={1} size="md">{product.name}</Heading>
                 <Rating rating={3.5} numReviews={34} />
+                <Text noOfLines={2} fontSize="md" mb='-0.5'>ItemAddress: {product.itemAddress}</Text>
                 <Text fontSize="md" mb='-0.5'>Danh mục: {product.category}</Text>
                 <Text fontSize="sm" mb='-0.5'>Đăng tải vào: {product.createdAt}</Text>
                 <HStack spacing='4'>
                   <Text fontWeight="bold" fontSize='md'>Giá: </Text>
-                  <Text noOfLines={1} fontWeight="bold" fontSize='md' color='blue'>{product.price} wei</Text>
+                  <Text noOfLines={1} fontWeight="bold" fontSize='md' color='blue'>{Web3.utils.fromWei(product.price.toString(), 'ether')} Ether</Text>
                 </HStack>
               </Stack>
             </CardBody>

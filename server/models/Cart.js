@@ -23,6 +23,10 @@ const Cart = new Schema(
       type: String,
       require: true,
     },
+    itemAddress: {
+      type: String,
+      require: true,
+    },
     status: {
       type: Boolean,
       require: true,

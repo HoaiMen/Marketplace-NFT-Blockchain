@@ -45,7 +45,7 @@ export const CartOrder = ({ value }) => {
                         Thành tiền
                     </Text>
                     <Text fontSize="xl" fontWeight="extrabold">
-                        {value} wei
+                        {value} Ether
                     </Text>
                 </Flex>
             </Stack>

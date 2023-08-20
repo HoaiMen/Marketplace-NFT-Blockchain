@@ -21,48 +21,29 @@ const ManagementP = () => {
       // Lấy địa chỉ hiện tại của người dùng
       const accounts = await web3.eth.getAccounts();
       const currentAddress = accounts[0];
-
-      let userProductsData = [];
-      let productsData = [];
       let result = productss.data
-      // console.log(result)
+      console.log(result)
 
       for (let i = 0; i < result.length; i++) {
         const product = await marketplace.methods.products(i).call();
-        // console.log(product)
-        // if ((product.owner.toLowerCase() === currentAddress.toLowerCase() && result[i].name === product.name) || product.purchased === true) {
-
-        if ((product.owner.toLowerCase() === currentAddress.toLowerCase()) || product.purchased === true) {
-          productsData.push(product);
-          // console.log(productsData)
-        }
+        console.log('ta', product)
         if (product.purchased === true) {
-          setStatus(true)
+
         }
         if (result[i].owner === currentAddress) {
           data.push(result[i])
+          console.log('data', data)
         }
       }
 
-      for (let i = 0; i < data.length; i++) {
-        if (i < productsData.length) {
-          data[i].itemAddress = productsData[i].itemHash;
-          data[i].status = productsData[i].purchased;
-          userProductsData.push(data[i]);
-          console.log('userdata:', userProductsData)
-        }
-      }
-
-
-      setProducts(userProductsData);
+      setProducts(data);
     } catch (err) {
       console.log(err)
     }
   }
-  // console.log("ManagementP:", products)
+  console.log("ManagementP:", products)
 
   useEffect(() => {
-    // getProducts();
     getManageProduct()
   }, []);
 

@@ -94,54 +94,68 @@ const PostProducts = () => {
       setLoading(true);
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       const web3 = new Web3(window.ethereum);
-      // Lấy địa chỉ owner từ hợp đồng Marketplace
       const owner = await web3.eth.getAccounts();
       const currentAddress = owner[0];
-      // setCurrentAddress(currentAddress);
 
-      await marketplace.methods
+      // Gửi giao dịch
+      const transactionReceipt = await marketplace.methods
         .createProduct(name, price)
-        .send({ from: account });
-      setLoading(false);
-    } catch (error) {
-      console.error('Error while creating product:', error);
-      setLoading(false);
+        .send({ from: currentAddress });
 
+      // Lấy ID giao dịch từ kết quả giao dịch
+      const transactionId = transactionReceipt.transactionHash;
+      const productIndex = itemHash; // Lấy chỉ số của sản phẩm sau khi tạo
+      setLoading(false);
+      return { transactionId, productIndex }; // Trả về ID giao dịch và chỉ số của sản phẩm
+    } catch (error) {
+      console.error('Lỗi trong quá trình tạo sản phẩm:', error);
+      setLoading(false);
+      return null; // Trả về null nếu có lỗi
     }
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
-    //Đổi đơn vị của price
     const rawPrice = productPriceRef.current.value;
     const parsedPrice = parseFloat(rawPrice);
     const price = window.web3.utils.toWei(parsedPrice.toString(), 'ether');
+
     if (isNaN(parsedPrice) || parsedPrice <= 0) {
       console.error('Vui lòng nhập một số nguyên không âm vào trường giá sản phẩm.');
       return;
     }
 
-    // Lấy địa chỉ owner từ hợp đồng Marketplace
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const web3 = new Web3(window.ethereum);
     const owner = await web3.eth.getAccounts();
     const currentAddress = owner[0];
-    // setCurrentAddress(currentAddress);
 
+    try {
+      // Lấy thông tin giao dịch và chỉ số của sản phẩm từ createProduct
+      const { transactionId, productIndex } = await createProduct(productNameRef.current.value, price);
 
-    const productt = {
-      name: productNameRef.current.value,
-      price: price,
-      image: productImgRef.current.value,
-      description: productDescRef.current.value,
-      category: productCategoryRef.current.value,
-      owner: currentAddress,
-      itemAddress: ''
+      if (transactionId) {
+        // Nếu giao dịch thành công, lấy thông tin của sản phẩm từ smart contract
+        const itemAddress = await marketplace.methods.getItemHash(productIndex).call();
+
+        const productt = {
+          name: productNameRef.current.value,
+          price: price,
+          image: productImgRef.current.value,
+          description: productDescRef.current.value,
+          category: productCategoryRef.current.value,
+          owner: currentAddress,
+          itemAddress: itemAddress // Sử dụng địa chỉ của sản phẩm đã lấy
+        }
+
+        handleAddProduct(productt);
+        console.log("productttt", productt);
+      } else {
+        console.error('Giao dịch thất bại.');
+      }
+    } catch (error) {
+      console.error('Lỗi trong quá trình xử lý:', error);
     }
-
-    createProduct(productt.name, productt.price);
-    handleAddProduct(productt);
-    console.log("productttt", productt)
   };
 
   useEffect(() => {
@@ -170,7 +184,7 @@ const PostProducts = () => {
                 <FormControl isRequired>
                   <InputGroup size="md">
                     <Input type="text" placeholder="Nhập giá sản phẩm" ref={productPriceRef} />
-                    <InputRightAddon children="wei" />
+                    <InputRightAddon children="Ether" />
                   </InputGroup>
                 </FormControl>
                 <FormControl isRequired>

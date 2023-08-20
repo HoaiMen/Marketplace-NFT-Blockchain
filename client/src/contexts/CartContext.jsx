@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { addProductsCart, deleteCart, getAllCarts } from "../api/Cart.api";
 import { useState } from "react";
-// import { useToast } from '@chakra-ui/react'
-// import Web3 from 'web3';
+
 
 export const CartContext = React.createContext({
     cart: [],
@@ -61,18 +60,11 @@ const CartContextProvider = ({ children }) => {
     }
     const getProductsCart = async () => {
         try {
-            // // Lấy địa chỉ hiện tại của người dùng
-            // const web3 = new Web3(window.ethereum);
-            // const accounts = await web3.eth.getAccounts();
-            // const accountCur = accounts[0]
-            // console.log("account hiện tại:", accountCur)
-            // console.log("account khi thêm:", accountAdd)
-            // if (accountCur === accountAdd) {
             const products = await getAllCarts();
-            // console.log('cart get', products.data)
+            // // console.log('cart get', products.data)
+
             setCart(products.data)
             setAmountInCart(products.data.length)
-            // }
 
         } catch (err) {
             console.log(err)

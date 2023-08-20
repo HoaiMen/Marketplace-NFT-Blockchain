@@ -82,8 +82,8 @@ const Cart = () => {
     };
 
     async function handleSubmit(id) {
-        const productss = await getDetailCart(id)
-        const productt = await getAllProducts();
+        const product = await getDetailCart(id)
+        const productss = await getAllProducts();
 
         // Lấy địa chỉ owner từ hợp đồng Marketplace
         await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -92,14 +92,22 @@ const Cart = () => {
         const currentAddress = owner[0];
         setCurrentAddress(currentAddress);
 
-        let all = productt?.data
-        let result = productss?.data
+        let all = productss?.data
+        let result = product?.data
+        console.log('detail', result)
         for (let i = 0; i <= all.length; i++) {
             const product = await marketplace.methods.products(i).call();
+            console.log('smart', product)
             if (product.name === result.name) {
-                // console.log('pppp', product)
                 purchaseProduct(product.id, product.price)
+                // console.log('itemHash:', product.itemHash)
+                // console.log('address:', result.itemAddress)
+                console.log('theo name', product)
             }
+            if (product.purchased === true) {
+                result.status = true;
+            }
+            console.log('kết quả', result)
         }
     };
 
@@ -136,14 +144,15 @@ const Cart = () => {
                                         key={index}
                                         id={item._id}
                                         name={item.name}
-                                        price={item.price}
+                                        price={Web3.utils.fromWei(item.price.toString(), 'ether')}
                                         category={item.category}
                                         image={item.image}
                                         dateCreate={item.createdAt}
+                                        itemAddress={item.itemAddress}
                                         handleClick={() => handleDeleteCart(item._id)}
 
                                     >
-                                        {!item.status ? (<Button
+                                        {item.status === false ? (<Button
                                             w={'full'}
                                             variant={'solid'}
                                             colorScheme='green'
@@ -159,9 +168,9 @@ const Cart = () => {
                         </Stack>
 
                         <Flex direction="column" align="center" flex='1.5'>
-                            <CartOrder value={total} />
+                            <CartOrder value={Web3.utils.fromWei(total.toString(), 'ether')} />
                             <HStack mt="6" fontWeight="medium">
-                                <Text>Hoặc <Link color={'blue.500'} as={NavLink} to={'/home'}>
+                                <Text>Hoặc <Link color={'blue.500'} as={NavLink} to={'/'}>
                                     Tiếp tục mua hàng
                                 </Link></Text>
 
