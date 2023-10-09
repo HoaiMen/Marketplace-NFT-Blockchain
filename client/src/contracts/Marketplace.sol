@@ -3,6 +3,7 @@ pragma solidity ^0.5.0;
 contract Marketplace {
   string public name;
   uint public productCount = 0;
+  uint public latestProductId = 0;
   uint public totalEtherSold = 0;
   mapping(uint => Product) public products;
 
@@ -53,6 +54,8 @@ contract Marketplace {
       false,
       itemHash // Gán itemHash vào sản phẩm
     );
+
+    latestProductId = productCount; // Cập nhật latestProductId
 
     emit ProductCreated(productCount, _name, _price, msg.sender, false, itemHash);
   }

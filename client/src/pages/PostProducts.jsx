@@ -65,13 +65,15 @@ const PostProducts = () => {
       setAccount(accounts[0]);
       const networkId = await web3.eth.net.getId();
       const networkData = Marketplace.networks[networkId];
-
+      console.log("setProductCount: ", productCount)
       if (networkData) {
         const marketplace = new web3.eth.Contract(Marketplace.abi, networkData.address);
         setMarketplace(marketplace);
-        const productCountHex = await marketplace.methods.productCount().call();
-        const parsedProductCount = ethers.BigNumber.from(productCountHex).toString();
-        setProductCount(parsedProductCount);
+        // console.log("marketplace: ", marketplace.methods.productCount().call())
+        // const productCountHex = await marketplace.methods.productCount().call();
+
+        // const parsedProductCount = ethers.BigNumber.from(productCountHex).toString();
+        // setProductCount(parsedProductCount);
 
         // Load products
         const productsArray = [];
@@ -118,13 +120,13 @@ const PostProducts = () => {
     event.preventDefault();
     const rawPrice = productPriceRef.current.value;
     const parsedPrice = parseFloat(rawPrice);
-    const price = window.web3.utils.toWei(parsedPrice.toString(), 'ether');
 
     if (isNaN(parsedPrice) || parsedPrice <= 0) {
       console.error('Vui lòng nhập một số nguyên không âm vào trường giá sản phẩm.');
       return;
     }
-
+    const price = window.web3.utils.toWei(parsedPrice, 'ether');
+    console.log("price", price)
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const web3 = new Web3(window.ethereum);
     const owner = await web3.eth.getAccounts();
