@@ -144,7 +144,7 @@ const Cart = () => {
                                         key={index}
                                         id={item._id}
                                         name={item.name}
-                                        price={Web3.utils.fromWei(item.price.toString(), 'ether')}
+                                        price={item.price}
                                         category={item.category}
                                         image={item.image}
                                         dateCreate={item.createdAt}

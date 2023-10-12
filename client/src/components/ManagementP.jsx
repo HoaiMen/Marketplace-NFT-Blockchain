@@ -13,7 +13,7 @@ const ManagementP = () => {
   const getManageProduct = async () => {
     try {
       const productss = await getAllProducts()
-
+      console.log(productss)
       const web3 = new Web3(window.ethereum);
       const networkId = await web3.eth.net.getId();
       const networkData = Marketplace.networks[networkId];

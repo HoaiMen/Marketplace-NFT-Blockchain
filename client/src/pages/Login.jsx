@@ -13,6 +13,7 @@ import {
   VStack,
   InputGroup,
   InputRightElement,
+  Container,
 } from '@chakra-ui/react';
 import animationData from '../Lottie/SignIn.json';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -56,7 +57,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <DefaultLayout>
+    <Container maxWidth='full'>
       <FoolLayout defaultOptions={defaultOptions} background={'green.200'}>
         <form onSubmit={(e) => onSubmit(e)}>
           <Stack spacing={4} w={'full'} maxW={'md'}>
@@ -69,18 +70,18 @@ const Login = ({ login, isAuthenticated }) => {
               <FormLabel>Địa chỉ Email</FormLabel>
               <Input
                 type="email"
-                placeholder="Email Address"
+                placeholder="Nhập địa chỉ Email"
                 name="email"
                 value={email}
                 onChange={(e) => onChange(e)}
               />
             </FormControl>
             <FormControl id="password">
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Mật khẩu</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
+                  placeholder="Nhập mật khẩu"
                   name="password"
                   value={password}
                   onChange={(e) => onChange(e)}
@@ -122,7 +123,7 @@ const Login = ({ login, isAuthenticated }) => {
           </Stack>
         </form>
       </FoolLayout>
-    </DefaultLayout>
+    </Container>
   );
 };
 Login.propTypes = {

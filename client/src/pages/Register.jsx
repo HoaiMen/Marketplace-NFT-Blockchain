@@ -12,6 +12,7 @@ import {
   InputGroup,
   InputRightElement,
   FormHelperText,
+  Container,
 } from '@chakra-ui/react';
 import animationData from '../Lottie/SignUp.json';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -71,7 +72,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <DefaultLayout>
+    <Container maxWidth='full'>
       <FoolLayout defaultOptions={defaultOptions} background={'blue.100'}>
         <form onSubmit={onSubmit}>
           <Stack spacing={4} w={'full'} maxW={'md'}>
@@ -80,10 +81,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             </Heading>
             <Flex>
               <FormControl mr="5%">
-                <FormLabel htmlFor="first-name">Name</FormLabel>
                 <Input
                   type="text"
-                  placeholder="Name"
+                  placeholder="Nhập tên đăng nhập"
                   name="name"
                   value={name}
                   onChange={onChange}
@@ -91,23 +91,20 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               </FormControl>
             </Flex>
             <FormControl mt="2%">
-              <FormLabel htmlFor="email">Email address</FormLabel>
               <Input
                 type="email"
-                placeholder="Email Address"
+                placeholder="Nhập địa chỉ Email"
                 name="email"
                 value={email}
                 onChange={onChange}
               />
-              <FormHelperText>We'll never share your email.</FormHelperText>
             </FormControl>
 
             <FormControl id="password">
-              <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Password"
+                  placeholder="Nhập mật khẩu"
                   name="password"
                   value={password}
                   onChange={onChange}
@@ -120,11 +117,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               </InputGroup>
             </FormControl>
             <FormControl id="password2">
-              <FormLabel>Nhập Lại Password</FormLabel>
               <InputGroup>
                 <Input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="Confirm Password"
+                  placeholder="Nhập lại mật khẩu"
                   name="password2"
                   value={password2}
                   onChange={onChange}
@@ -151,7 +147,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
           </Stack>
         </form>
       </FoolLayout>
-    </DefaultLayout>
+    </Container>
   );
 };
 
