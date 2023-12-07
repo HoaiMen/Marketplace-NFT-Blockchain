@@ -1,14 +1,16 @@
+// eslint-disable-next-line no-undef
 const Marketplace = artifacts.require('./Marketplace.sol');
 
 require('chai').use(require('chai-as-promised')).should();
 
+// eslint-disable-next-line no-undef
 contract('Marketplace', ([deployer, seller, buyer]) => {
   let marketplace;
-
+  // eslint-disable-next-line no-undef
   before(async () => {
     marketplace = await Marketplace.deployed();
   });
-
+  // eslint-disable-next-line no-undef, jest/valid-describe-callback
   describe('deployment', async () => {
     it('deploys successfully', async () => {
       const address = await marketplace.address;
@@ -29,7 +31,7 @@ contract('Marketplace', ([deployer, seller, buyer]) => {
 
     before(async () => {
       result = await marketplace.createProduct('iPhone X', web3.utils.toWei('1', 'Ether'), {
-        from: seller
+        from: seller,
       });
       productCount = await marketplace.productCount();
     });
@@ -69,7 +71,7 @@ contract('Marketplace', ([deployer, seller, buyer]) => {
       // SUCCESS: Buyer makes purchase
       result = await marketplace.purchaseProduct(productCount, {
         from: buyer,
-        value: web3.utils.toWei('1', 'Ether')
+        value: web3.utils.toWei('1', 'Ether'),
       });
 
       // Check logs
@@ -96,22 +98,22 @@ contract('Marketplace', ([deployer, seller, buyer]) => {
       // FAILURE: Tries to buy a product that does not exist, i.e., product must have valid id
       await marketplace.purchaseProduct(99, {
         from: buyer,
-        value: web3.utils.toWei('1', 'Ether')
+        value: web3.utils.toWei('1', 'Ether'),
       }).should.be.rejected; // FAILURE: Buyer tries to buy without enough ether
       // FAILURE: Buyer tries to buy without enough ether
       await marketplace.purchaseProduct(productCount, {
         from: buyer,
-        value: web3.utils.toWei('0.5', 'Ether')
+        value: web3.utils.toWei('0.5', 'Ether'),
       }).should.be.rejected;
       // FAILURE: Deployer tries to buy the product, i.e., product can't be purchased twice
       await marketplace.purchaseProduct(productCount, {
         from: deployer,
-        value: web3.utils.toWei('1', 'Ether')
+        value: web3.utils.toWei('1', 'Ether'),
       }).should.be.rejected;
       // FAILURE: Buyer tries to buy again, i.e., buyer can't be the seller
       await marketplace.purchaseProduct(productCount, {
         from: buyer,
-        value: web3.utils.toWei('1', 'Ether')
+        value: web3.utils.toWei('1', 'Ether'),
       }).should.be.rejected;
     });
   });

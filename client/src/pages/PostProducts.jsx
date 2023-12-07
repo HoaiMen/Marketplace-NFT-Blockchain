@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import Web3 from 'web3';
 import Marketplace from '../abis/Marketplace.json';
-import { ethers } from 'ethers';
 import DefaultLayout from '../layouts/DefaultLayout';
 import {
   Button,
@@ -18,7 +17,6 @@ import Lottie from 'react-lottie';
 import animationData from '../Lottie/create.json';
 import axios from 'axios';
 import { ProductContext } from '../contexts/ProductContext';
-import { BiChevronsLeft } from 'react-icons/bi';
 
 const options = ['Thực phẩm', 'Đồ nội thất', 'Thiết bị công nghệ', 'Phụ kiện điện tử', 'Khác'];
 
@@ -45,7 +43,7 @@ const PostProducts = () => {
   const [loading, setLoading] = useState(true);
   const [marketplace, setMarketplace] = useState(null);
   // const [currentAddress, setCurrentAddress] = useState('');
-  const [itemHash, setItemHash] = useState('')
+  const [itemHash, setItemHash] = useState(0)
 
   async function loadWeb3() {
     if (window.ethereum) {
@@ -91,6 +89,20 @@ const PostProducts = () => {
     }
   }
 
+  async function waitForConfirmation(transactionHash) {
+    const web3 = new Web3(window.ethereum);
+    let receipt = null;
+
+    while (receipt === null) {
+      receipt = await web3.eth.getTransactionReceipt(transactionHash);
+      if (receipt === null) {
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Đợi 1 giây trước khi thử lại
+      }
+    }
+
+    return receipt;
+  }
+
   async function createProduct(name, price) {
     try {
       setLoading(true);
@@ -99,20 +111,34 @@ const PostProducts = () => {
       const owner = await web3.eth.getAccounts();
       const currentAddress = owner[0];
 
-      // Gửi giao dịch
+      // Gửi giao dịch để tạo sản phẩm
       const transactionReceipt = await marketplace.methods
         .createProduct(name, price)
         .send({ from: currentAddress });
 
-      // Lấy ID giao dịch từ kết quả giao dịch
+      // Lấy transactionHash từ kết quả giao dịch
       const transactionId = transactionReceipt.transactionHash;
-      const productIndex = itemHash; // Lấy chỉ số của sản phẩm sau khi tạo
-      setLoading(false);
-      return { transactionId, productIndex }; // Trả về ID giao dịch và chỉ số của sản phẩm
+
+      // Đợi giao dịch được xác nhận
+      const confirmation = await waitForConfirmation(transactionId);
+      if (confirmation.status) {
+        // Nếu giao dịch được xác nhận, lấy thông tin sản phẩm từ smart contract
+        const productIndex = await marketplace.methods.latestProductId().call();
+        const latestProduct = await marketplace.methods.products(productIndex).call();
+        const itemAddress1 = latestProduct.itemHash; // Lấy itemHash từ thông tin sản phẩm
+
+        setLoading(false);
+        return { itemAddress1 };
+      } else {
+        // Nếu giao dịch không thành công, xử lý tùy thuộc vào yêu cầu của bạn
+        console.error('Giao dịch tạo sản phẩm không thành công.');
+        setLoading(false);
+        return null;
+      }
     } catch (error) {
       console.error('Lỗi trong quá trình tạo sản phẩm:', error);
       setLoading(false);
-      return null; // Trả về null nếu có lỗi
+      return null;
     }
   }
 
@@ -126,7 +152,6 @@ const PostProducts = () => {
       return;
     }
     const price = window.web3.utils.toWei(parsedPrice.toString(), 'ether');
-    console.log("price", typeof (price))
     console.log("price1", price)
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     const web3 = new Web3(window.ethereum);
@@ -135,27 +160,23 @@ const PostProducts = () => {
 
     try {
       // Lấy thông tin giao dịch và chỉ số của sản phẩm từ createProduct
-      const { transactionId, productIndex } = await createProduct(productNameRef.current.value, price);
-      console.log(marketplace.methods)
-      if (transactionId) {
-        // Nếu giao dịch thành công, lấy thông tin của sản phẩm từ smart contract
-        // const itemAddress = await marketplace.methods.getItemHash(productIndex).call();
-
-        const productt = {
-          name: productNameRef.current.value,
-          price: price,
-          image: productImgRef.current.value,
-          description: productDescRef.current.value,
-          category: productCategoryRef.current.value,
-          owner: currentAddress,
-          // itemAddress: itemAddress // Sử dụng địa chỉ của sản phẩm đã lấy
-        }
-
-        handleAddProduct(productt);
-        console.log("productttt", productt);
-      } else {
-        console.error('Giao dịch thất bại.');
+      const { itemAddress1 } = await createProduct(productNameRef.current.value, price);
+      // Nếu giao dịch thành công, lấy thông tin của sản phẩm từ smart contract
+      const itemAddress = itemAddress1
+      console.log('Có chạy đến đây không', itemAddress);
+      const productt = {
+        name: productNameRef.current.value,
+        price: price,
+        image: productImgRef.current.value,
+        description: productDescRef.current.value,
+        category: productCategoryRef.current.value,
+        owner: currentAddress,
+        itemAddress: itemAddress // Sử dụng địa chỉ của sản phẩm đã lấy
       }
+
+      handleAddProduct(productt);
+      console.log("productttt", productt);
+
     } catch (error) {
       console.error('Lỗi trong quá trình xử lý:', error);
     }
@@ -207,5 +228,7 @@ const PostProducts = () => {
     </DefaultLayout>
   );
 };
-
+// phiên bản Solidity bạn đang sử dụng để triển khai contract và trong mã nguồn của bạn là tương tự.
+//solidity: change....
+// xóa file trong abi và migrate lại
 export default PostProducts;

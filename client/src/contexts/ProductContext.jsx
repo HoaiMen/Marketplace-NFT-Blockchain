@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { addProducts } from '../api/Product.api';
-
 export const ProductContext = React.createContext({
     product: {},
     setProduct: () => { },

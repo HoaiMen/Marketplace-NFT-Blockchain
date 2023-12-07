@@ -13,7 +13,7 @@ const ManagementP = () => {
   const getManageProduct = async () => {
     try {
       const productss = await getAllProducts()
-      console.log(productss)
+      console.log('lấy ra tất', productss)
       const web3 = new Web3(window.ethereum);
       const networkId = await web3.eth.net.getId();
       const networkData = Marketplace.networks[networkId];
@@ -25,20 +25,26 @@ const ManagementP = () => {
       console.log(result)
 
       for (let i = 0; i < result.length; i++) {
-        const product = await marketplace.methods.products(i).call();
-        console.log('ta', product)
-        if (product.purchased === true) {
 
-        }
-        if (result[i].owner === currentAddress) {
-          data.push(result[i])
-          console.log('data', data)
+        try {
+          const product = await marketplace.methods.products(i).call();
+          console.log('Product:', product);
+
+          if (product.purchased === false) {
+          }
+          if (result[i].owner === currentAddress) {
+
+            data.push(result[i])
+            console.log('data', data)
+          }
+        } catch (error) {
+          console.error('Lỗi:', error);
         }
       }
 
       setProducts(data);
     } catch (err) {
-      console.log(err)
+      console.log("lỗi", err)
     }
   }
   console.log("ManagementP:", products)

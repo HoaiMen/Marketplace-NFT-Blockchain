@@ -17,7 +17,7 @@ contract Marketplace {
   }
 
   event ProductCreated(
-    uint id,
+    uint indexed productId,
     string name,
     uint price,
     address payable owner,
@@ -56,7 +56,6 @@ contract Marketplace {
     );
 
     latestProductId = productCount; // Cập nhật latestProductId
-
     emit ProductCreated(productCount, _name, _price, msg.sender, false, itemHash);
   }
 
@@ -81,7 +80,8 @@ contract Marketplace {
     // Cập nhật thông tin sản phẩm trong mapping
     products[_id] = _product;
     // Trả tiền cho người bán bằng cách chuyển Ether
-    address(_seller).transfer(msg.value);
+    address payable payableSeller = address(uint160(_seller));
+    payableSeller.transfer(msg.value);
     totalEtherSold += _product.price;
     // Gửi sự kiện thông báo việc mua sản phẩm thành công
     emit ProductPurchased(
