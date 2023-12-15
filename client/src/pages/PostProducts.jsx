@@ -18,7 +18,7 @@ import animationData from '../Lottie/create.json';
 import axios from 'axios';
 import { ProductContext } from '../contexts/ProductContext';
 
-const options = ['Thực phẩm', 'Đồ nội thất', 'Thiết bị công nghệ', 'Phụ kiện điện tử', 'Khác'];
+const options = ['Thực phẩm', 'Đồ nội thất', 'Thiết bị công nghệ', 'Phụ kiện điện tử', 'Thời trang', 'Khác'];
 
 const PostProducts = () => {
   const defaultOptions = {
@@ -43,7 +43,6 @@ const PostProducts = () => {
   const [loading, setLoading] = useState(true);
   const [marketplace, setMarketplace] = useState(null);
   // const [currentAddress, setCurrentAddress] = useState('');
-  const [itemHash, setItemHash] = useState(0)
 
   async function loadWeb3() {
     if (window.ethereum) {

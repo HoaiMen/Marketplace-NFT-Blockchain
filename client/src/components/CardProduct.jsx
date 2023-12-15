@@ -97,12 +97,5 @@ const CardProduct = () => {
     </SimpleGrid>
   );
 };
-const Status = ({ lable, color }) => {
-  return (
-    <Badge rounded="full" px="2" mr="2" fontSize="0.8em" colorScheme={color}>
-      {lable}
-    </Badge>
-  );
-};
 
 export default CardProduct;

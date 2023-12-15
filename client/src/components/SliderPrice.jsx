@@ -13,7 +13,6 @@ import {
   SliderTrack,
   Tooltip,
   SliderFilledTrack,
-  Button,
 } from '@chakra-ui/react';
 import { HomeContext } from '../contexts/HomeContext';
 
@@ -77,9 +76,7 @@ const SliderPrice = () => {
           </NumberInput>
         </InputGroup>
 
-        <Button w="full" my="4" variant="solid" colorScheme="green" onClick={() => setPrice(10)}>
-          Xóa lựa chọn
-        </Button>
+
       </VStack>
     </Box>
   );

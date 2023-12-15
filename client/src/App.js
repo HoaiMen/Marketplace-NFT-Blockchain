@@ -16,6 +16,8 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils2/setAuthToken';
+import Profile from './pages/Profile';
+import ChangeToken from './pages/ChangeToken';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -38,6 +40,7 @@ const App = () => {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/products/:id" element={<ProductDetail />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
+        <Route path="/profile" element={<ChangeToken />}></Route>
       </Routes>
     </Provider>
   );

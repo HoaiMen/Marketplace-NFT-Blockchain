@@ -10,8 +10,7 @@ import {
   AccordionIcon,
   useColorModeValue,
   Text,
-  CheckboxGroup,
-  Checkbox,
+  Button,
   Stack,
   Radio,
   RadioGroup,
@@ -23,8 +22,9 @@ const tabs = [
   'Tất cả',
   'Đồ nội thất',
   'Thiết bị công nghệ',
-  'Phụ kiện điện tử',
+  'Phụ kiện',
   'Thực phẩm',
+  'Thời trang',
   'Khác',
 ];
 const SidebarContent = ({ onClose, ...rest }) => {
@@ -84,9 +84,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
               <SliderPrice />
             </AccordionPanel>
           </AccordionItem>
+
         </Accordion>
+        <Button w="full" my="4" variant="solid" colorScheme="green" onClick={() => { setType(tabs[0]); setPrice(10) }}>
+          Xóa lựa chọn
+        </Button>
       </Box>
-    </Box>
+    </Box >
   );
 };
 

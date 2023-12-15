@@ -22,16 +22,16 @@ const ManagementP = () => {
       const accounts = await web3.eth.getAccounts();
       const currentAddress = accounts[0];
       let result = productss.data
-      console.log(result)
+      console.log('lấy ra hết ', result)
 
       for (let i = 0; i < result.length; i++) {
 
         try {
-          const product = await marketplace.methods.products(i).call();
-          console.log('Product:', product);
+          // const product = await marketplace.methods.products(i).call();
+          // console.log('Product:', product);
 
-          if (product.purchased === false) {
-          }
+          // if (product.purchased === false) {
+          // }
           if (result[i].owner === currentAddress) {
 
             data.push(result[i])

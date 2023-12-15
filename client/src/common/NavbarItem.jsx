@@ -10,5 +10,9 @@ export const navbarItems = [
     {
         label: 'Đăng sản phẩm',
         href: '/post-products',
+    },
+    {
+        label: 'Profile',
+        href: '/profile',
     }
 ];

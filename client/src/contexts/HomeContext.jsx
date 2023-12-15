@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { getAllProducts } from "../api/Product.api";
 import { useNavigate } from "react-router-dom";
-import Web3 from 'web3';
-import Marketplace from '../abis/Marketplace.json';
 export const HomeContext = React.createContext({
   products: [],
   setProducts: () => { },
@@ -12,18 +10,31 @@ export const HomeContext = React.createContext({
   setPrice: () => { },
   getAllProduct: () => { },
   getProductCate: () => { },
-  handleView: () => { }
+  handleView: () => { },
+  keyWord: "",
+  setKeyWord: () => { },
+  handleSearch: () => { }
 })
 
 const HomeContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [type, setType] = useState('Tất cả');
   const [price, setPrice] = useState(10);
+  const [keyWord, setKeyWord] = useState('');
   const navigate = useNavigate()
   const handleView = (id) => {
     navigate(`/products/${id}`);
   };
+  const handleSearch = () => {
+    let arr = products;
+    if (keyWord) {
+      arr = arr.filter((item) => item.name.toLowerCase().includes(keyWord.toLowerCase()));
+      setProducts(arr);
+      console.log('lấy ra ', arr)
+    } else {
 
+    }
+  }
   const getAllProduct = async (pricee) => {
     try {
       const productss = await getAllProducts();
@@ -53,23 +64,6 @@ const HomeContextProvider = ({ children }) => {
   const getProductCate = async (category) => {
     try {
       const productss = await getAllProducts()
-      const web3 = new Web3(window.ethereum);
-
-      let result = productss.data
-
-
-      // for (let i = 0; i < result.length; i++) {
-      // console.log('price chang eth', result[i].price)
-      //   const product = await marketplace.methods.products(i).call();
-      //   if (product.name !== "" && product.owner.toLowerCase() !== currentAddress.toLowerCase()) {
-      //     productsData.push(product)
-      //     console.log('MetaMask', productsData)
-      //   }
-      //   if (result[i].owner !== currentAddress) {
-      //     data.push(result[i])
-      //   }
-      // }
-      // setProducts(data);
       setProducts(productss.data);
       let alt;
       switch (category) {
@@ -81,12 +75,16 @@ const HomeContextProvider = ({ children }) => {
           alt = productss.data.filter((el) => el.category === "Thiết bị công nghệ");
           setProducts(alt);
           break;
-        case 'Phụ kiện điện tử':
-          alt = productss.data.filter((el) => el.category === "Phụ kiện điện tử");
+        case 'Phụ kiện':
+          alt = productss.data.filter((el) => el.category === "Phụ kiện");
           setProducts(alt);
           break;
         case 'Thực phẩm':
           alt = productss.data.filter((el) => el.category === "Thực phẩm");
+          setProducts(alt);
+          break;
+        case 'Thời trang':
+          alt = productss.data.filter((el) => el.category === "Thời trang");
           setProducts(alt);
           break;
         case 'Khác':
@@ -102,7 +100,7 @@ const HomeContextProvider = ({ children }) => {
     }
   }
   return (
-    <HomeContext.Provider value={{ products, setProducts, getAllProduct, type, setType, price, setPrice, getProductCate, handleView }}>
+    <HomeContext.Provider value={{ products, setProducts, getAllProduct, type, setType, price, setPrice, getProductCate, handleView, keyWord, setKeyWord, handleSearch }}>
       {children}
     </HomeContext.Provider>
   )

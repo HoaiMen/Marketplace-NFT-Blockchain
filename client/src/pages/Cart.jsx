@@ -21,7 +21,7 @@ import { getDetailCart } from '../api/Cart.api';
 import { getAllProducts } from '../api/Product.api';
 
 const Cart = () => {
-    const { cart, amountInCart, getProductsCart, handleDeleteCart, total } = useContext(CartContext)
+    const { cart, amountInCart, getProductsCart, handleDeleteCart, total, setCart } = useContext(CartContext)
     const param = useParams()
 
     const [account, setAccount] = useState('');
@@ -102,10 +102,10 @@ const Cart = () => {
                 purchaseProduct(product.id, product.price)
                 // console.log('itemHash:', product.itemHash)
                 // console.log('address:', result.itemAddress)
-                console.log('theo name', product)
             }
             if (product.purchased === true) {
                 result.status = true;
+                console.log('đã thanh toán', result)
             }
             console.log('kết quả', result)
         }
@@ -144,7 +144,7 @@ const Cart = () => {
                                         key={index}
                                         id={item._id}
                                         name={item.name}
-                                        price={item.price}
+                                        price={Web3.utils.fromWei(item.price.toString(), 'ether')}
                                         category={item.category}
                                         image={item.image}
                                         dateCreate={item.createdAt}
